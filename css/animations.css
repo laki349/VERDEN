@@ -1,0 +1,63 @@
+@keyframes forest-arrival {
+  from { transform: scale(1.07); opacity: 0.72; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes wordmark-arrival {
+  to { transform: translateY(-50%) scale(1); opacity: 1; }
+}
+
+@keyframes environment-shadow-arrival {
+  to { transform: translateX(-50%) scale(1); opacity: 1; }
+}
+
+@keyframes claim-arrival {
+  to { transform: translate(-50%, 0); opacity: 1; }
+}
+
+@keyframes product-arrival {
+  to { transform: translate(-50%, 0) scale(1); opacity: 1; }
+}
+
+@keyframes cta-arrival {
+  to { transform: translate(-50%, 0); opacity: 1; }
+}
+
+@keyframes signature-arrival {
+  to { transform: translate(-50%, 0); opacity: 1; }
+}
+
+@keyframes map-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes map-point-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes point-pulse {
+  0%, 100% { opacity: 0.42; transform: scale(0.82); }
+  50% { opacity: 0.76; transform: scale(1.18); }
+}
+
+@keyframes detail-address-arrival {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes postcode-layer-arrival {
+  from { opacity: 0; transform: translateY(10px) scale(0.99); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 1ms !important;
+  }
+}

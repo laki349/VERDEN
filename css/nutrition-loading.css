@@ -1,0 +1,208 @@
+.nutrition-loading-scene {
+  position: absolute;
+  z-index: 11;
+  inset: 0;
+  visibility: hidden;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    opacity 520ms ease,
+    visibility 0s linear 560ms;
+}
+
+.hero.is-nutrition-loading .nutrition-loading-scene {
+  visibility: visible;
+  pointer-events: auto;
+  opacity: 1;
+  transition:
+    opacity 560ms ease 80ms,
+    visibility 0s linear 0s;
+}
+
+.hero.is-nutrition-loading .location-scene,
+.hero.is-nutrition-loading .smoothie-purpose-scene,
+.hero.is-nutrition-loading .body-profile-scene {
+  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.nutrition-loading-scene__veil {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background:
+    linear-gradient(115deg, rgba(3, 13, 7, 0.55), rgba(4, 16, 8, 0.7) 54%, rgba(2, 10, 5, 0.8)),
+    radial-gradient(ellipse at 50% 38%, rgba(159, 200, 141, 0.13), rgba(4, 15, 8, 0.18) 70%);
+}
+
+.nutrition-loading-scene__brand {
+  position: absolute;
+  z-index: 2;
+  top: 11%;
+  left: 50%;
+  margin: 0;
+  color: rgba(245, 243, 225, 0.84);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.34em;
+  text-indent: 0.34em;
+  transform: translateX(-50%);
+}
+
+.nutrition-loading-scene__content {
+  position: absolute;
+  z-index: 2;
+  top: 48%;
+  right: 28px;
+  left: 28px;
+  color: rgba(250, 247, 231, 0.96);
+  text-align: center;
+  opacity: 0;
+  transform: translateY(-46%);
+  transition:
+    opacity 520ms ease 130ms,
+    transform 620ms var(--ease-premium) 130ms;
+}
+
+.hero.is-nutrition-loading .nutrition-loading-scene__content {
+  opacity: 1;
+  transform: translateY(-50%);
+}
+
+.nutrition-loader {
+  --loader-offset: 302;
+  position: relative;
+  width: 132px;
+  height: 132px;
+  margin: 0 auto 28px;
+}
+
+.nutrition-loader::before,
+.nutrition-loader::after {
+  position: absolute;
+  border-radius: 50%;
+  content: "";
+  pointer-events: none;
+}
+
+.nutrition-loader::before {
+  inset: -12px;
+  background: radial-gradient(circle, rgba(170, 200, 140, 0.16), rgba(170, 200, 140, 0) 64%);
+  opacity: 0.62;
+}
+
+.nutrition-loader::after {
+  inset: 48px;
+  background: rgba(217, 226, 184, 0.95);
+  box-shadow: 0 0 22px rgba(170, 200, 140, 0.22);
+}
+
+.nutrition-loader svg {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.nutrition-loader__track,
+.nutrition-loader__ring {
+  fill: none;
+  stroke-width: 5;
+}
+
+.nutrition-loader__track {
+  stroke: rgba(244, 241, 223, 0.18);
+}
+
+.nutrition-loader__ring {
+  stroke: rgba(217, 226, 184, 0.95);
+  stroke-linecap: round;
+  stroke-dasharray: 302;
+  stroke-dashoffset: var(--loader-offset);
+  filter: drop-shadow(0 0 7px rgba(170, 200, 140, 0.18));
+  transition: stroke-dashoffset 680ms var(--ease-premium);
+}
+
+.nutrition-loader__core {
+  position: absolute;
+  z-index: 2;
+  inset: 42px;
+  border: 1px solid rgba(244, 241, 223, 0.26);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 42% 34%, rgba(250, 247, 231, 0.22), rgba(196, 218, 164, 0.1) 45%, rgba(7, 22, 12, 0.16));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.nutrition-loader__core::before {
+  position: absolute;
+  top: 18px;
+  left: 23px;
+  width: 13px;
+  height: 20px;
+  border-radius: 13px 0 13px 0;
+  background: rgba(217, 226, 184, 0.88);
+  content: "";
+  transform: rotate(38deg);
+}
+
+.nutrition-loading-scene__content h2 {
+  margin: 0;
+  color: rgba(250, 247, 231, 0.97);
+  font-size: clamp(25px, 6.2vw, 30px);
+  font-weight: 500;
+  line-height: 1.28;
+  letter-spacing: -0.06em;
+}
+
+.nutrition-loading-scene__description {
+  margin: 10px 0 0;
+  color: rgba(229, 232, 210, 0.66);
+  font-size: 12px;
+  line-height: 1.6;
+  letter-spacing: -0.025em;
+}
+
+.nutrition-loading-scene__step {
+  display: inline-flex;
+  min-height: 35px;
+  align-items: center;
+  justify-content: center;
+  margin: 25px 0 0;
+  padding: 0 18px;
+  border: 1px solid rgba(244, 241, 223, 0.34);
+  border-radius: 999px;
+  background: rgba(7, 22, 12, 0.28);
+  color: rgba(237, 242, 216, 0.86);
+  font-size: 12px;
+  letter-spacing: -0.035em;
+}
+
+.nutrition-loading-scene__step.is-changing {
+  animation: nutrition-step-change 420ms var(--ease-premium);
+}
+
+@keyframes nutrition-step-change {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nutrition-loader__ring,
+  .nutrition-loading-scene__step.is-changing {
+    transition: none;
+    animation: none;
+  }
+}

@@ -1,0 +1,281 @@
+.address-edit-modal {
+  position: absolute;
+  z-index: 25;
+  inset: 0;
+  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    opacity 260ms ease,
+    visibility 0s linear 280ms;
+}
+
+.address-edit-modal.is-open {
+  visibility: visible;
+  pointer-events: auto;
+  opacity: 1;
+  transition:
+    opacity 260ms ease,
+    visibility 0s linear 0s;
+}
+
+.address-edit-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background:
+    radial-gradient(ellipse at 50% 32%, rgba(42, 68, 43, 0.28), rgba(2, 9, 4, 0.74)),
+    rgba(2, 9, 4, 0.58);
+  cursor: pointer;
+  backdrop-filter: blur(5px);
+}
+
+.address-edit-modal__panel {
+  position: absolute;
+  right: 18px;
+  bottom: calc(18px + env(safe-area-inset-bottom));
+  left: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(245, 242, 224, 0.58);
+  border-radius: 28px;
+  background:
+    linear-gradient(145deg, rgba(17, 42, 23, 0.98), rgba(6, 22, 12, 0.98)),
+    radial-gradient(ellipse at 24% 0%, rgba(255, 250, 218, 0.1), rgba(255, 255, 255, 0));
+  box-shadow: 0 26px 68px rgba(2, 10, 5, 0.54);
+  color: rgba(250, 247, 231, 0.96);
+  transform: translateY(18px) scale(0.985);
+  transition: transform 320ms var(--ease-premium);
+}
+
+.address-edit-modal.is-open .address-edit-modal__panel {
+  transform: translateY(0) scale(1);
+}
+
+.address-edit-modal__header {
+  display: flex;
+  min-height: 72px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 18px 10px;
+}
+
+.address-edit-modal__eyebrow {
+  margin: 0 0 4px;
+  color: rgba(205, 219, 183, 0.68);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 10px;
+  letter-spacing: 0.26em;
+}
+
+.address-edit-modal__header h3 {
+  margin: 0;
+  color: rgba(250, 247, 231, 0.97);
+  font-size: 20px;
+  font-weight: 560;
+  letter-spacing: -0.055em;
+}
+
+.address-edit-modal__close {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  padding: 0 0 2px;
+  place-items: center;
+  border: 1px solid rgba(245, 242, 224, 0.38);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(250, 247, 231, 0.9);
+  cursor: pointer;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.address-edit-modal__body {
+  display: grid;
+  gap: 12px;
+  padding: 8px 18px 18px;
+}
+
+.address-edit-search {
+  display: grid;
+  width: 100%;
+  min-height: 64px;
+  align-items: center;
+  justify-items: start;
+  padding: 13px 15px;
+  border: 1px solid rgba(244, 241, 223, 0.42);
+  border-radius: 20px;
+  background: rgba(7, 22, 12, 0.32);
+  color: rgba(250, 247, 231, 0.94);
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+.address-edit-search span {
+  font-size: 14px;
+  font-weight: 520;
+  line-height: 1.42;
+  letter-spacing: -0.045em;
+}
+
+.address-edit-search small {
+  margin-top: 3px;
+  color: rgba(205, 219, 183, 0.66);
+  font-size: 11px;
+}
+
+.address-edit-detail {
+  display: grid;
+  gap: 8px;
+}
+
+.address-edit-detail span {
+  color: rgba(229, 232, 210, 0.7);
+  font-size: 12px;
+  letter-spacing: -0.035em;
+}
+
+.address-edit-detail input {
+  width: 100%;
+  min-height: 52px;
+  border: 1px solid rgba(244, 241, 223, 0.42);
+  border-radius: 18px;
+  background: rgba(7, 22, 12, 0.32);
+  color: rgba(250, 247, 231, 0.94);
+  font: inherit;
+  outline: 0;
+  padding: 0 14px;
+}
+
+.address-edit-detail input::placeholder {
+  color: rgba(229, 232, 210, 0.48);
+}
+
+.address-edit-detail input:focus,
+.address-edit-search:focus-visible {
+  border-color: rgba(217, 226, 184, 0.78);
+  box-shadow: 0 0 0 3px rgba(170, 200, 140, 0.1);
+}
+
+.address-edit-types {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.address-edit-types button {
+  min-height: 48px;
+  border: 1px solid rgba(244, 241, 223, 0.3);
+  border-radius: 17px;
+  background: rgba(7, 22, 12, 0.26);
+  color: rgba(250, 247, 231, 0.86);
+  cursor: pointer;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 520;
+}
+
+.address-edit-types button.is-active {
+  border-color: rgba(196, 218, 164, 0.72);
+  background: rgba(55, 86, 48, 0.36);
+  color: rgba(250, 247, 231, 0.98);
+}
+
+.address-edit-save {
+  min-height: 54px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 999px;
+  background: linear-gradient(105deg, rgba(255, 255, 243, 0.98), rgba(224, 234, 210, 0.94));
+  color: #294a32;
+  cursor: pointer;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 720;
+  letter-spacing: -0.045em;
+}
+
+.address-edit-save:disabled {
+  border-color: rgba(255, 255, 255, 0.24);
+  background: rgba(230, 232, 209, 0.16);
+  color: rgba(244, 241, 223, 0.48);
+  cursor: default;
+}
+
+.address-edit-postcode {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  visibility: hidden;
+  flex-direction: column;
+  pointer-events: none;
+  opacity: 0;
+  background: #f4f1df;
+  transition:
+    opacity 240ms ease,
+    visibility 0s linear 260ms;
+}
+
+.address-edit-postcode.is-open {
+  visibility: visible;
+  pointer-events: auto;
+  opacity: 1;
+  transition:
+    opacity 240ms ease,
+    visibility 0s linear 0s;
+}
+
+.address-edit-postcode__header {
+  display: flex;
+  min-height: 58px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px 0 17px;
+  background: linear-gradient(105deg, #294932, #1c3524);
+  color: rgba(249, 246, 229, 0.94);
+  font-size: 15px;
+  font-weight: 520;
+}
+
+.address-edit-postcode__header button {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  padding: 0 0 3px;
+  place-items: center;
+  border: 1px solid rgba(248, 245, 228, 0.4);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(249, 246, 229, 0.92);
+  cursor: pointer;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 23px;
+  line-height: 1;
+}
+
+.address-edit-postcode__container {
+  flex: 1;
+  min-height: 420px;
+}
+
+.address-edit-postcode__container iframe {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  border: 0;
+}
+
+@media (max-height: 720px) {
+  .address-edit-modal__panel {
+    top: 8%;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+  }
+
+  .address-edit-modal__body {
+    overflow-y: auto;
+    max-height: calc(100dvh - 174px);
+  }
+}

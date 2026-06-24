@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#172619" />
+    <title>VERDEN — Designed for your day.</title>
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/hero.css" />
+    <link rel="stylesheet" href="css/location.css" />
+    <link rel="stylesheet" href="css/smoothie-purpose.css" />
+    <link rel="stylesheet" href="css/body-profile.css" />
+    <link rel="stylesheet" href="css/nutrition-loading.css" />
+    <link rel="stylesheet" href="css/checkout-placeholder.css" />
+    <link rel="stylesheet" href="css/nutrition-modal.css" />
+    <link rel="stylesheet" href="css/payment.css" />
+    <link rel="stylesheet" href="css/address-edit-modal.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero" id="hero" aria-labelledby="hero-heading">
+        <img class="hero__forest" src="assets/hero-forest.png" alt="" />
+        <div class="hero__tone" aria-hidden="true"></div>
+
+        <div class="hero__content" id="hero-content">
+          <h1 class="hero__claim" id="hero-heading">
+            <span>Better than a sandwich.</span>
+            <span>Better than a protein shake.</span>
+          </h1>
+
+          <div class="hero__wordmark" aria-hidden="true">
+            <span class="hero__wordmark-left">VE</span>
+            <span class="hero__wordmark-r">R</span>
+            <span class="hero__wordmark-d">D</span>
+            <span class="hero__wordmark-right">EN</span>
+          </div>
+
+          <div class="product-stage">
+            <span class="product__environment-shadow" aria-hidden="true"></span>
+            <div class="product" aria-label="VERDEN 그린 스무디">
+              <span class="product__shadow" aria-hidden="true"></span>
+              <img class="product__image" src="assets/hero-cup.png" alt="견과와 과일을 올린 VERDEN 그린 스무디" />
+            </div>
+          </div>
+
+          <button class="region-cta" id="open-location-scene" type="button" aria-label="내 지역 확인하기">
+            <span>내 지역 확인하기</span>
+            <span class="region-cta__arrow" aria-hidden="true">
+              <svg viewBox="0 0 32 32" focusable="false">
+                <path d="M5 16h20M18 8l8 8-8 8" />
+              </svg>
+            </span>
+          </button>
+
+          <p class="hero__signature">Designed for your day.</p>
+        </div>
+
+        <section class="location-scene" id="location-scene" aria-labelledby="location-title" aria-hidden="true">
+          <div class="location-scene__veil" aria-hidden="true"></div>
+          <p class="location-scene__brand">VERDEN</p>
+
+          <div class="postcode-layer" id="postcode-layer" aria-hidden="true" hidden>
+            <button class="postcode-layer__backdrop" id="postcode-backdrop" type="button" aria-label="주소 검색 닫기"></button>
+            <div class="postcode-layer__panel" role="dialog" aria-modal="true" aria-labelledby="postcode-title">
+              <div class="postcode-layer__header">
+                <div>
+                  <p class="postcode-layer__eyebrow">VERDEN</p>
+                  <h3 id="postcode-title">주소 검색</h3>
+                </div>
+                <button class="postcode-layer__close" id="postcode-close" type="button" aria-label="주소 검색 닫기">×</button>
+              </div>
+              <div class="postcode-layer__body" id="postcode-container"></div>
+            </div>
+          </div>
+
+          <div class="location-scene__body">
+            <figure class="korea-map">
+              <svg viewBox="0 0 210 420" role="img" aria-labelledby="korea-map-title">
+                <title id="korea-map-title">VERDEN 배송 가능 지역이 표시된 한반도 지도</title>
+                <defs>
+                  <filter id="point-glow" x="-100%" y="-100%" width="300%" height="300%">
+                    <feGaussianBlur stdDeviation="3" result="blur" />
+                    <feMerge>
+                      <feMergeNode in="blur" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                </defs>
+                <path class="korea-map__outline" pathLength="1" d="M131 10 L127 28 L117 37 L112 53 L99 63 L90 78 L76 88 L64 103 L48 111 L37 124 L23 137 L28 150 L41 157 L37 170 L27 178 L34 193 L47 190 L56 202 L70 216 L62 230 L53 248 L58 261 L71 268 L79 286 L87 308 L99 333 L112 351 L129 367 L145 375 L158 364 L166 343 L172 320 L178 294 L182 268 L181 241 L177 218 L171 198 L163 178 L159 158 L164 142 L175 127 L176 108 L168 92 L174 77 L185 60 L179 47 L164 45 L156 32 L146 27 L141 12 Z" />
+                <path class="korea-map__island" pathLength="1" d="M105 397 C115 389 136 389 144 397 C138 407 116 411 105 403 Z" />
+
+                <g class="map-point" style="--point-delay: .38s" tabindex="0" role="button" aria-label="신촌">
+                  <rect class="map-point__tooltip-bg" x="45" y="153" width="36" height="16" rx="8" />
+                  <text class="map-point__tooltip-text" x="63" y="164" text-anchor="middle">신촌</text>
+                  <circle class="map-point__glow" cx="63" cy="174" r="7" />
+                  <circle class="map-point__dot" cx="63" cy="174" r="2.6" />
+                </g>
+                <g class="map-point" style="--point-delay: .46s" tabindex="0" role="button" aria-label="광화문">
+                  <rect class="map-point__tooltip-bg" x="48" y="150" width="42" height="16" rx="8" />
+                  <text class="map-point__tooltip-text" x="69" y="161" text-anchor="middle">광화문</text>
+                  <circle class="map-point__glow" cx="69" cy="171" r="7" />
+                  <circle class="map-point__dot" cx="69" cy="171" r="2.6" />
+                </g>
+                <g class="map-point" style="--point-delay: .54s" tabindex="0" role="button" aria-label="여의도">
+                  <rect class="map-point__tooltip-bg" x="41" y="161" width="42" height="16" rx="8" />
+                  <text class="map-point__tooltip-text" x="62" y="172" text-anchor="middle">여의도</text>
+                  <circle class="map-point__glow" cx="62" cy="182" r="7" />
+                  <circle class="map-point__dot" cx="62" cy="182" r="2.6" />
+                </g>
+                <g class="map-point" style="--point-delay: .62s" tabindex="0" role="button" aria-label="강남">
+                  <rect class="map-point__tooltip-bg" x="54" y="163" width="36" height="16" rx="8" />
+                  <text class="map-point__tooltip-text" x="72" y="174" text-anchor="middle">강남</text>
+                  <circle class="map-point__glow" cx="72" cy="184" r="7" />
+                  <circle class="map-point__dot" cx="72" cy="184" r="2.6" />
+                </g>
+                <g class="map-point" style="--point-delay: .7s" tabindex="0" role="button" aria-label="판교">
+                  <rect class="map-point__tooltip-bg" x="56" y="179" width="36" height="16" rx="8" />
+                  <text class="map-point__tooltip-text" x="74" y="190" text-anchor="middle">판교</text>
+                  <circle class="map-point__glow" cx="74" cy="200" r="7" />
+                  <circle class="map-point__dot" cx="74" cy="200" r="2.6" />
+                </g>
+              </svg>
+            </figure>
+
+            <form class="location-form" id="location-form">
+              <div class="location-form__copy">
+                <h2 id="location-title">주소를 적어주세요</h2>
+                <p id="location-description">배송 가능 여부를 먼저 확인할게요.</p>
+              </div>
+
+              <button class="address-search address-search-field" id="address-search-button" type="button">
+                <span class="address-search__result address-search-field__content">
+                  <span class="address-search__result-copy">
+                    <strong class="address-search-field__main" id="selected-address-text">배송받을 주소 검색하기</strong>
+                    <small class="address-search-field__sub" id="selected-zonecode-text"></small>
+                  </span>
+                  <span class="address-search__change address-search-field__change" id="address-change-text" aria-hidden="true"></span>
+                </span>
+              </button>
+
+              <div class="detail-address-wrap" id="detail-address-wrap" aria-hidden="true">
+                <label class="detail-address detail-address-field" id="detail-address-field">
+                  <span class="sr-only">상세주소</span>
+                  <input id="detail-address-input" name="detailAddress" type="text" autocomplete="address-line2" placeholder="상세주소를 입력해주세요" />
+                </label>
+              </div>
+
+              <div class="address-types" aria-label="주소 유형 선택">
+                <button type="button" data-address-type="home" aria-pressed="false">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11 12 4l8.5 7v8.5a1 1 0 0 1-1 1h-5v-6h-5v6h-5a1 1 0 0 1-1-1Z" /></svg>
+                  <span>집</span>
+                </button>
+                <button type="button" data-address-type="work" aria-pressed="false">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7V4.5h8V7m-11 0h14a1.5 1.5 0 0 1 1.5 1.5v10A1.5 1.5 0 0 1 19 20H5a1.5 1.5 0 0 1-1.5-1.5v-10A1.5 1.5 0 0 1 5 7Zm-1.5 5.5h17M10 12v2h4v-2" /></svg>
+                  <span>회사</span>
+                </button>
+              </div>
+
+              <button class="location-form__continue" id="location-continue-button" type="button" disabled>
+                계속하기
+              </button>
+            </form>
+          </div>
+        </section>
+
+        <section class="smoothie-purpose-scene" id="smoothie-purpose-scene" aria-labelledby="smoothie-purpose-title" aria-hidden="true">
+          <div class="smoothie-purpose-scene__veil" aria-hidden="true"></div>
+          <button class="smoothie-purpose-scene__back" id="purpose-back-button" type="button" aria-label="주소 입력 화면으로 돌아가기">←</button>
+          <p class="smoothie-purpose-scene__brand">VERDEN</p>
+
+          <div class="smoothie-purpose-scene__content" id="smoothie-purpose-content">
+            <div class="smoothie-purpose-scene__copy">
+              <h2 id="smoothie-purpose-title">어떤 한 끼가 필요하세요?</h2>
+              <p>오늘의 목적에 맞춰 스무디를 추천해드릴게요.</p>
+            </div>
+
+            <div class="smoothie-purpose-options" aria-label="스무디 목적 선택">
+              <button class="smoothie-purpose-menu-item" type="button" data-smoothie-purpose="mealReplacement" data-smoothie-label="식사대체용" aria-label="식사대체용 스무디 선택" style="--card-delay: 80ms">
+                <span class="smoothie-purpose-menu-item__copy">
+                  <span class="smoothie-purpose-menu-item__badges">
+                    <span>인기 1위</span>
+                    <span>추천</span>
+                  </span>
+                  <strong>VERDEN 식사대체용 스무디</strong>
+                  <span class="smoothie-purpose-menu-item__description">오트와 바나나를 베이스로, 한 컵만으로도 든든하게 채우는 한 끼</span>
+                  <em>포만감 중심 · 아침/점심 대용 추천</em>
+                  <b>8,900원</b>
+                </span>
+                <span class="smoothie-purpose-menu-item__media">
+                  <img src="assets/meal-replacement-smoothie.png" alt="식사대체용 VERDEN 오트 바나나 스무디" />
+                  <span class="smoothie-purpose-menu-item__select" aria-hidden="true">
+                    <svg viewBox="0 0 28 28" focusable="false">
+                      <path d="M14 6v16M6 14h16" />
+                    </svg>
+                  </span>
+                </span>
+              </button>
+
+              <button class="smoothie-purpose-menu-item" type="button" data-smoothie-purpose="proteinRecovery" data-smoothie-label="운동보충용" aria-label="운동보충용 스무디 선택" style="--card-delay: 180ms">
+                <span class="smoothie-purpose-menu-item__copy">
+                  <span class="smoothie-purpose-menu-item__badges">
+                    <span>운동 후 추천</span>
+                  </span>
+                  <strong>VERDEN 운동보충용 스무디</strong>
+                  <span class="smoothie-purpose-menu-item__description">묵직한 단백질감은 살리고, 인공적인 단맛은 줄인 건강한 단백질 스무디</span>
+                  <em>단백질 중심 · 운동 후 회복 추천</em>
+                  <b>8,900원</b>
+                </span>
+                <span class="smoothie-purpose-menu-item__media">
+                  <img src="assets/protein-recovery-smoothie.png" alt="운동보충용 VERDEN 베리 단백질 스무디" />
+                  <span class="smoothie-purpose-menu-item__select" aria-hidden="true">
+                    <svg viewBox="0 0 28 28" focusable="false">
+                      <path d="M14 6v16M6 14h16" />
+                    </svg>
+                  </span>
+                </span>
+              </button>
+
+              <button class="smoothie-purpose-menu-item" type="button" data-smoothie-purpose="diet" data-smoothie-label="다이어트용" aria-label="다이어트용 스무디 선택" style="--card-delay: 280ms">
+                <span class="smoothie-purpose-menu-item__copy">
+                  <span class="smoothie-purpose-menu-item__badges">
+                    <span>가볍게 추천</span>
+                  </span>
+                  <strong>VERDEN 다이어트용 스무디</strong>
+                  <span class="smoothie-purpose-menu-item__description">상큼한 베리와 가벼운 포만감으로 부담 없이 채우는 밸런스 스무디</span>
+                  <em>저당 중심 · 가벼운 한 끼 추천</em>
+                  <b>8,900원</b>
+                </span>
+                <span class="smoothie-purpose-menu-item__media">
+                  <img src="assets/diet-smoothie.png" alt="다이어트용 VERDEN 핑크 베리 스무디" />
+                  <span class="smoothie-purpose-menu-item__select" aria-hidden="true">
+                    <svg viewBox="0 0 28 28" focusable="false">
+                      <path d="M14 6v16M6 14h16" />
+                    </svg>
+                  </span>
+                </span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section class="body-profile-scene" id="body-profile-scene" aria-labelledby="body-profile-title" aria-hidden="true">
+          <div class="body-profile-scene__veil" aria-hidden="true"></div>
+          <button class="body-profile-scene__back" id="body-profile-back-button" type="button" aria-label="스무디 선택 화면으로 돌아가기">←</button>
+          <p class="body-profile-scene__brand">VERDEN</p>
+
+          <form class="body-profile-form" id="body-profile-form" novalidate>
+            <div class="body-profile-form__copy">
+              <h2 id="body-profile-title">마지막으로, 몸에 맞춰볼게요.</h2>
+              <p>나이, 키, 몸무게를 바탕으로 필요한 영양 균형을 계산해요.</p>
+            </div>
+
+            <div class="body-profile-fields">
+              <label class="body-profile-field" for="body-age-input">
+                <span>나이</span>
+                <span class="body-profile-field__control">
+                  <input id="body-age-input" name="age" type="number" min="14" max="80" inputmode="numeric" placeholder="예: 24" autocomplete="off" />
+                  <em>세</em>
+                </span>
+                <small id="body-age-error" aria-live="polite"></small>
+              </label>
+
+              <label class="body-profile-field" for="body-height-input">
+                <span>키</span>
+                <span class="body-profile-field__control">
+                  <input id="body-height-input" name="heightCm" type="number" min="130" max="220" inputmode="decimal" placeholder="예: 175" autocomplete="off" />
+                  <em>cm</em>
+                </span>
+                <small id="body-height-error" aria-live="polite"></small>
+              </label>
+
+              <label class="body-profile-field" for="body-weight-input">
+                <span>몸무게</span>
+                <span class="body-profile-field__control">
+                  <input id="body-weight-input" name="weightKg" type="number" min="35" max="180" inputmode="decimal" placeholder="예: 70" autocomplete="off" />
+                  <em>kg</em>
+                </span>
+                <small id="body-weight-error" aria-live="polite"></small>
+              </label>
+            </div>
+
+            <p class="body-profile-form__error" id="body-profile-error" aria-live="polite"></p>
+
+            <button class="body-profile-form__submit" id="body-profile-submit-button" type="submit" disabled>
+              영양 설계 시작하기
+            </button>
+          </form>
+        </section>
+
+        <section class="nutrition-loading-scene" id="nutrition-loading-scene" aria-labelledby="nutrition-loading-title" aria-hidden="true">
+          <div class="nutrition-loading-scene__veil" aria-hidden="true"></div>
+          <p class="nutrition-loading-scene__brand">VERDEN</p>
+
+          <div class="nutrition-loading-scene__content">
+            <div class="nutrition-loader" aria-hidden="true">
+              <svg viewBox="0 0 120 120">
+                <circle class="nutrition-loader__track" cx="60" cy="60" r="48" />
+                <circle class="nutrition-loader__ring" cx="60" cy="60" r="48" />
+              </svg>
+              <span class="nutrition-loader__core"></span>
+            </div>
+
+            <h2 id="nutrition-loading-title">영양 균형을 맞추고 있어요.</h2>
+            <p class="nutrition-loading-scene__description">입력한 정보와 선택한 스무디 목적을 바탕으로 조합을 설계 중이에요.</p>
+            <p class="nutrition-loading-scene__step" id="nutrition-loading-step" aria-live="polite">탄수화물 균형 확인 완료</p>
+          </div>
+        </section>
+
+        <section class="checkout-placeholder-scene" id="checkout-placeholder-scene" aria-labelledby="checkout-placeholder-title" aria-hidden="true">
+          <div class="checkout-placeholder-scene__veil" aria-hidden="true"></div>
+          <p class="checkout-placeholder-scene__brand">VERDEN</p>
+
+          <div class="checkout-scene__scroll">
+            <header class="checkout-scene__header">
+              <h2 id="checkout-placeholder-title">맞춤 스무디 확인</h2>
+              <p>입력한 정보에 맞춰 가장 어울리는 조합을 준비했어요.</p>
+            </header>
+
+            <article class="checkout-product-card">
+              <div class="checkout-product-card__image-wrap">
+                <img id="checkout-product-image" src="assets/meal-replacement-smoothie.png" alt="VERDEN 맞춤 스무디" />
+              </div>
+              <div class="checkout-product-card__copy">
+                <p class="checkout-product-card__eyebrow">Recommended</p>
+                <h3 id="checkout-product-name">VERDEN 식사대체용 스무디</h3>
+                <p id="checkout-product-description">든든한 한 끼를 위한 오트·바나나 베이스</p>
+                <div class="macro-summary" aria-label="추천 스무디 영양 요약">
+                  <div class="macro-summary__row">
+                    <span class="macro-summary__label">탄수화물</span>
+                    <strong class="macro-summary__value" id="checkout-carb-chip">--g</strong>
+                  </div>
+                  <div class="macro-summary__row">
+                    <span class="macro-summary__label">단백질</span>
+                    <strong class="macro-summary__value" id="checkout-protein-chip">--g</strong>
+                  </div>
+                  <div class="macro-summary__row">
+                    <span class="macro-summary__label">지방</span>
+                    <strong class="macro-summary__value" id="checkout-fat-chip">--g</strong>
+                  </div>
+                  <button class="macro-summary__more" id="checkout-nutrition-more" type="button">영양성분 더보기</button>
+                </div>
+                <div class="checkout-product-card__meta">
+                  <span>수량 1개</span>
+                  <strong id="checkout-product-price">8,900원</strong>
+                </div>
+              </div>
+            </article>
+
+            <p class="checkout-personal-note">입력한 신체정보와 선택 목적에 맞춰 기본 조합을 맞췄어요.</p>
+
+            <section class="checkout-addons" aria-labelledby="checkout-addons-title">
+              <h3 id="checkout-addons-title">추가하면 좋은 옵션</h3>
+              <div class="checkout-addons__list">
+                <button class="checkout-addon" type="button" data-addon-id="proteinBoost" aria-pressed="false">
+                  <span>
+                    <strong>단백질 추가</strong>
+                    <small>운동 후 회복감이 필요할 때</small>
+                  </span>
+                  <em>+2,000원</em>
+                  <b>추가</b>
+                </button>
+
+                <button class="checkout-addon" type="button" data-addon-id="satietyBoost" aria-pressed="false">
+                  <span>
+                    <strong>포만감 부스트</strong>
+                    <small>오트·치아씨드 기반으로 더 든든하게</small>
+                  </span>
+                  <em>+2,000원</em>
+                  <b>추가</b>
+                </button>
+
+                <button class="checkout-addon" type="button" data-addon-id="lowSugarBlend" aria-pressed="false">
+                  <span>
+                    <strong>저당 과일 배합</strong>
+                    <small>당 부담을 줄인 과일 조합</small>
+                  </span>
+                  <em>+1,500원</em>
+                  <b>추가</b>
+                </button>
+
+                <button class="checkout-addon" type="button" data-addon-id="healthySandwich" aria-pressed="false">
+                  <span>
+                    <strong>건강 샌드위치</strong>
+                    <small>함께 먹기 좋은 가벼운 사이드</small>
+                  </span>
+                  <em>+6,000원</em>
+                  <b>추가</b>
+                </button>
+              </div>
+            </section>
+
+            <section class="checkout-summary" aria-label="주문 금액 요약">
+              <dl>
+                <div>
+                  <dt>상품금액</dt>
+                  <dd id="checkout-summary-product">8,900원</dd>
+                </div>
+                <div>
+                  <dt>추가옵션</dt>
+                  <dd id="checkout-summary-addons">0원</dd>
+                </div>
+                <div>
+                  <dt>배송비</dt>
+                  <dd id="checkout-summary-delivery">2,500원</dd>
+                </div>
+                <div class="checkout-summary__total">
+                  <dt>총 결제금액</dt>
+                  <dd id="checkout-summary-total">11,400원</dd>
+                </div>
+              </dl>
+            </section>
+          </div>
+
+          <div class="checkout-sticky-cta">
+            <button class="checkout-placeholder-scene__button" id="checkout-placeholder-button" type="button">
+              11,400원 결제하기
+            </button>
+          </div>
+        </section>
+
+        <section class="payment-scene" id="payment-scene" aria-labelledby="payment-title" aria-hidden="true">
+          <div class="payment-scene__veil" aria-hidden="true"></div>
+          <button class="payment-scene__back" id="payment-back-button" type="button" aria-label="추천 스무디 확인 화면으로 돌아가기">←</button>
+          <p class="payment-scene__brand">VERDEN</p>
+
+          <div class="payment-scene__scroll">
+            <header class="payment-scene__header">
+              <h2 id="payment-title">주문 확인</h2>
+              <p>수령 정보와 결제수단을 확인해주세요.</p>
+            </header>
+
+            <section class="payment-card payment-order-card" aria-labelledby="payment-order-title">
+              <h3 id="payment-order-title">주문 상품</h3>
+              <div class="payment-order-product">
+                <img id="payment-product-image" src="assets/meal-replacement-smoothie.png" alt="VERDEN 맞춤 스무디" />
+                <div>
+                  <strong id="payment-product-name">VERDEN 식사대체용 스무디</strong>
+                  <p id="payment-product-description">든든한 한 끼를 위한 오트·바나나 베이스</p>
+                  <span id="payment-product-price">수량 1개 · 8,900원</span>
+                </div>
+              </div>
+              <div class="payment-order-addons" id="payment-order-addons">기본 추천 조합</div>
+              <button class="payment-inline-button" id="payment-nutrition-more" type="button">영양성분 보기</button>
+            </section>
+
+            <section class="payment-card payment-address-card" aria-labelledby="payment-address-title">
+              <div class="payment-section-heading">
+                <h3 id="payment-address-title">배송 주소</h3>
+                <button id="payment-address-edit" type="button">수정</button>
+              </div>
+              <p id="payment-address-road">주소를 확인해주세요.</p>
+              <small id="payment-address-detail"></small>
+              <span id="payment-address-type"></span>
+            </section>
+
+            <section class="payment-card payment-delivery-time-card" aria-labelledby="payment-delivery-time-title">
+              <div class="payment-card__copy">
+                <h3 id="payment-delivery-time-title">배송 시간 선택</h3>
+                <p>오전 6시 30분부터 자정까지 선택할 수 있어요.</p>
+              </div>
+              <label class="delivery-time-field" for="payment-delivery-time">
+                <span>수령 희망 시간</span>
+                <select id="payment-delivery-time" name="deliveryTime">
+                  <option value="">시간을 선택해주세요</option>
+                </select>
+              </label>
+            </section>
+
+            <section class="payment-card payment-contact-card" aria-labelledby="payment-contact-title">
+              <h3 id="payment-contact-title">연락처</h3>
+              <input id="payment-phone-input" type="tel" inputmode="numeric" placeholder="010-1234-5678" autocomplete="tel" />
+              <label class="payment-safe-number">
+                <input id="payment-safe-number" type="checkbox" checked />
+                <span>안심번호 사용</span>
+              </label>
+            </section>
+
+            <section class="payment-card payment-method-card" aria-labelledby="payment-method-title">
+              <h3 id="payment-method-title">결제수단</h3>
+              <div class="payment-method-list" role="radiogroup" aria-label="결제수단 선택">
+                <button type="button" data-payment-method="card" aria-pressed="false"><span></span>신용/체크카드</button>
+                <button type="button" data-payment-method="kakaoPay" aria-pressed="false"><span></span>카카오페이</button>
+                <button type="button" data-payment-method="tossPay" aria-pressed="false"><span></span>토스페이</button>
+                <button type="button" data-payment-method="naverPay" aria-pressed="false"><span></span>네이버페이</button>
+              </div>
+            </section>
+
+            <section class="payment-card payment-summary-card" aria-label="결제 금액 요약">
+              <dl>
+                <div><dt>상품금액</dt><dd id="payment-summary-product">8,900원</dd></div>
+                <div><dt>추가옵션</dt><dd id="payment-summary-addons">0원</dd></div>
+                <div><dt>배송비</dt><dd id="payment-summary-delivery">2,500원</dd></div>
+                <div class="payment-summary-card__total"><dt>총 결제금액</dt><dd id="payment-summary-total">11,400원</dd></div>
+              </dl>
+            </section>
+          </div>
+
+          <div class="payment-sticky-cta">
+            <button id="payment-submit-button" type="button" disabled>결제정보를 입력해주세요</button>
+          </div>
+
+          <div class="payment-final-modal" id="payment-final-modal" aria-hidden="true">
+            <button class="payment-final-modal__backdrop" id="payment-final-backdrop" type="button" aria-label="결제 준비 완료 안내 닫기"></button>
+            <div class="payment-final-modal__panel" role="dialog" aria-modal="true" aria-labelledby="payment-final-title">
+              <p>VERDEN</p>
+              <h3 id="payment-final-title">주문 정보가 준비되었어요.</h3>
+              <small>이제 실제 결제 연동만 남았어요.</small>
+              <button id="payment-final-confirm" type="button">확인</button>
+            </div>
+          </div>
+        </section>
+
+        <div class="nutrition-modal" id="nutrition-modal" aria-hidden="true">
+          <button class="nutrition-modal__backdrop" id="nutrition-modal-backdrop" type="button" aria-label="영양성분 자세히 보기 닫기"></button>
+          <div class="nutrition-modal__sheet" role="dialog" aria-modal="true" aria-labelledby="nutrition-modal-title">
+            <div class="nutrition-modal__header">
+              <div>
+                <p>VERDEN</p>
+                <h3 id="nutrition-modal-title">영양성분 자세히 보기</h3>
+                <small>입력한 정보와 목적에 맞춰 계산된 기준이에요.</small>
+              </div>
+              <button id="nutrition-modal-close" type="button" aria-label="영양성분 자세히 보기 닫기">×</button>
+            </div>
+
+            <div class="nutrition-modal__summary" id="nutrition-modal-summary"></div>
+            <div class="nutrition-modal__details" id="nutrition-modal-details"></div>
+            <section class="nutrition-modal__description" id="nutrition-modal-description"></section>
+            <div class="nutrition-modal__tags" id="nutrition-modal-tags"></div>
+          </div>
+        </div>
+
+        <div class="address-edit-modal" id="address-edit-modal" aria-hidden="true">
+          <button class="address-edit-modal__backdrop" id="address-edit-backdrop" type="button" aria-label="주소 수정 닫기"></button>
+          <div class="address-edit-modal__panel" role="dialog" aria-modal="true" aria-labelledby="address-edit-title">
+            <div class="address-edit-modal__header">
+              <div>
+                <p class="address-edit-modal__eyebrow">VERDEN</p>
+                <h3 id="address-edit-title">배송 주소 수정</h3>
+              </div>
+              <button class="address-edit-modal__close" id="address-edit-close" type="button" aria-label="주소 수정 닫기">×</button>
+            </div>
+
+            <div class="address-edit-modal__body">
+              <button class="address-edit-search" id="edit-address-search-button" type="button">
+                <span id="edit-selected-address-text">주소 검색하기</span>
+                <small id="edit-selected-zonecode-text"></small>
+              </button>
+
+              <label class="address-edit-detail">
+                <span>상세주소</span>
+                <input id="edit-detail-address-input" type="text" autocomplete="address-line2" placeholder="상세주소를 입력해주세요" />
+              </label>
+
+              <div class="address-edit-types" aria-label="주소 유형 선택">
+                <button type="button" data-edit-address-type="home" aria-pressed="false">집</button>
+                <button type="button" data-edit-address-type="work" aria-pressed="false">회사</button>
+              </div>
+
+              <button class="address-edit-save" id="address-edit-save" type="button" disabled>
+                주소 수정 완료
+              </button>
+            </div>
+
+            <div class="address-edit-postcode" id="address-edit-postcode" aria-hidden="true">
+              <div class="address-edit-postcode__header">
+                <span>주소 검색</span>
+                <button id="address-edit-postcode-close" type="button" aria-label="주소 검색 닫기">×</button>
+              </div>
+              <div class="address-edit-postcode__container" id="address-edit-postcode-container"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script async src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="js/dom.js?v=20260624-payment3"></script>
+    <script src="js/state.js?v=20260624-payment3"></script>
+    <script src="js/nutrition-engine.js?v=20260625-diet1"></script>
+    <script src="js/hero.js?v=20260624-payment3"></script>
+    <script src="js/location.js?v=20260624-payment3"></script>
+    <script src="js/smoothie-purpose.js?v=20260624-payment3"></script>
+    <script src="js/body-profile.js?v=20260624-payment3"></script>
+    <script src="js/nutrition-loading.js?v=20260624-payment3"></script>
+    <script src="js/nutrition-modal.js?v=20260624-payment3"></script>
+    <script src="js/checkout-placeholder.js?v=20260625-diet1"></script>
+    <script src="js/address-edit-modal.js?v=20260624-payment3"></script>
+    <script src="js/payment.js?v=20260624-payment3"></script>
+    <script src="js/main.js?v=20260624-payment3"></script>
+  </body>
+</html>

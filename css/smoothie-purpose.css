@@ -1,0 +1,354 @@
+.smoothie-purpose-scene {
+  position: absolute;
+  z-index: 9;
+  inset: 0;
+  visibility: hidden;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    opacity 520ms ease,
+    visibility 0s linear 560ms;
+}
+
+.hero.is-purpose .smoothie-purpose-scene {
+  visibility: visible;
+  pointer-events: auto;
+  opacity: 1;
+  transition:
+    opacity 560ms ease 80ms,
+    visibility 0s linear 0s;
+}
+
+.hero.is-purpose .location-scene {
+  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.smoothie-purpose-scene__veil {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background:
+    linear-gradient(115deg, rgba(3, 13, 7, 0.48), rgba(4, 16, 8, 0.66) 54%, rgba(2, 10, 5, 0.76)),
+    radial-gradient(ellipse at 44% 32%, rgba(93, 119, 64, 0.16), rgba(4, 15, 8, 0.2) 68%);
+}
+
+.smoothie-purpose-scene__brand {
+  position: absolute;
+  z-index: 2;
+  top: 10.8%;
+  left: 50%;
+  margin: 0;
+  color: rgba(245, 243, 225, 0.84);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.34em;
+  text-indent: 0.34em;
+}
+
+.smoothie-purpose-scene__back {
+  position: absolute;
+  z-index: 3;
+  top: calc(10.5% - 7px);
+  left: 22px;
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid rgba(245, 242, 224, 0.42);
+  border-radius: 50%;
+  background: rgba(8, 24, 13, 0.26);
+  color: rgba(247, 244, 225, 0.9);
+  cursor: pointer;
+  font-size: 17px;
+  line-height: 1;
+  transition:
+    border-color 200ms ease,
+    background-color 200ms ease,
+    transform 180ms ease;
+}
+
+.smoothie-purpose-scene__back:active {
+  transform: scale(0.96);
+}
+
+.smoothie-purpose-scene__content {
+  position: absolute;
+  z-index: 2;
+  top: 16.7%;
+  right: 20px;
+  bottom: 5%;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 520ms ease 160ms,
+    transform 620ms var(--ease-premium) 160ms;
+}
+
+.hero.is-purpose .smoothie-purpose-scene__content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.smoothie-purpose-scene__copy {
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.smoothie-purpose-scene__copy h2 {
+  margin: 0;
+  color: rgba(250, 247, 231, 0.97);
+  font-size: clamp(24px, 6.1vw, 29px);
+  font-weight: 500;
+  line-height: 1.28;
+  letter-spacing: -0.06em;
+}
+
+.smoothie-purpose-scene__copy p {
+  margin: 8px 0 0;
+  color: rgba(229, 232, 210, 0.68);
+  font-size: 12px;
+  line-height: 1.55;
+  letter-spacing: -0.025em;
+}
+
+.smoothie-purpose-options {
+  display: grid;
+  flex: 1;
+  gap: 12px;
+  align-content: start;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 2px 0 16px;
+  scrollbar-width: none;
+}
+
+.smoothie-purpose-options::-webkit-scrollbar {
+  display: none;
+}
+
+.smoothie-purpose-menu-item {
+  display: grid;
+  width: 100%;
+  min-height: 190px;
+  grid-template-columns: minmax(0, 1fr) 34%;
+  column-gap: 13px;
+  align-items: stretch;
+  padding: 15px 13px 15px 15px;
+  border: 1px solid rgba(245, 242, 224, 0.46);
+  border-radius: 25px;
+  background:
+    linear-gradient(128deg, rgba(11, 31, 17, 0.62), rgba(6, 20, 11, 0.44)),
+    radial-gradient(ellipse at 8% 6%, rgba(255, 250, 218, 0.1), rgba(255, 255, 255, 0) 58%),
+    radial-gradient(ellipse at 92% 18%, rgba(172, 195, 138, 0.1), rgba(255, 255, 255, 0) 56%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 18px 42px rgba(2, 10, 5, 0.2);
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  opacity: 0;
+  text-align: left;
+  transform: translateY(12px);
+  transition:
+    border-color 220ms ease,
+    background-color 220ms ease,
+    transform 180ms ease,
+    filter 220ms ease;
+}
+
+.hero.is-purpose .smoothie-purpose-menu-item {
+  animation: purpose-card-in 520ms var(--ease-premium) var(--card-delay) forwards;
+}
+
+.smoothie-purpose-menu-item:hover {
+  border-color: rgba(245, 242, 224, 0.62);
+  filter: brightness(1.025);
+}
+
+.smoothie-purpose-menu-item:active {
+  transform: scale(0.99);
+}
+
+.smoothie-purpose-menu-item__copy {
+  display: flex;
+  min-height: 0;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2px 0;
+}
+
+.smoothie-purpose-menu-item__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 8px;
+}
+
+.smoothie-purpose-menu-item__badges span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 22px;
+  padding: 0 8px;
+  border: 1px solid rgba(217, 226, 184, 0.22);
+  border-radius: 999px;
+  background: rgba(220, 228, 190, 0.1);
+  color: rgba(235, 235, 208, 0.8);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.smoothie-purpose-menu-item__copy strong {
+  display: block;
+  color: rgba(250, 247, 231, 0.96);
+  font-size: clamp(17px, 4.1vw, 20px);
+  font-weight: 650;
+  line-height: 1.24;
+  letter-spacing: -0.065em;
+}
+
+.smoothie-purpose-menu-item__description {
+  display: block;
+  margin-top: 7px;
+  color: rgba(220, 227, 200, 0.66);
+  font-size: 12px;
+  line-height: 1.46;
+  letter-spacing: -0.04em;
+}
+
+.smoothie-purpose-menu-item__copy em {
+  display: block;
+  margin-top: 8px;
+  color: rgba(191, 214, 170, 0.74);
+  font-size: 11px;
+  font-style: normal;
+  line-height: 1.35;
+  letter-spacing: -0.035em;
+}
+
+.smoothie-purpose-menu-item__copy b {
+  display: block;
+  margin-top: 11px;
+  color: rgba(250, 247, 231, 0.98);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+.smoothie-purpose-menu-item__media {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  align-items: center;
+  justify-items: center;
+}
+
+.smoothie-purpose-menu-item__media::after {
+  position: absolute;
+  right: 12%;
+  bottom: 12%;
+  left: 12%;
+  height: 16px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(1, 9, 4, 0.34), rgba(1, 9, 4, 0) 72%);
+  content: "";
+  filter: blur(8px);
+}
+
+.smoothie-purpose-menu-item__media img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 128%;
+  max-width: none;
+  height: 150px;
+  object-fit: contain;
+  filter: saturate(0.98) contrast(0.98) drop-shadow(0 12px 18px rgba(1, 8, 4, 0.16));
+}
+
+.smoothie-purpose-menu-item__select {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  bottom: 15px;
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 999px;
+  background: linear-gradient(105deg, rgba(255, 255, 243, 0.97), rgba(224, 234, 210, 0.93));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 10px 24px rgba(3, 14, 6, 0.16);
+  color: #294a32;
+}
+
+.smoothie-purpose-menu-item__select svg {
+  display: block;
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-width: 2.1;
+}
+
+@keyframes purpose-card-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-height: 700px) {
+  .smoothie-purpose-scene__content {
+    top: 14.8%;
+    bottom: 3.6%;
+  }
+
+  .smoothie-purpose-scene__copy {
+    margin-bottom: 10px;
+  }
+
+  .smoothie-purpose-scene__copy h2 {
+    font-size: clamp(22px, 5.7vw, 26px);
+  }
+
+  .smoothie-purpose-options {
+    gap: 9px;
+    padding-bottom: 10px;
+  }
+
+  .smoothie-purpose-menu-item {
+    min-height: 174px;
+    grid-template-columns: minmax(0, 1fr) 32%;
+    padding: 13px 11px 13px 13px;
+    border-radius: 22px;
+  }
+
+  .smoothie-purpose-menu-item__copy strong {
+    font-size: 16px;
+  }
+
+  .smoothie-purpose-menu-item__description {
+    font-size: 11px;
+  }
+
+  .smoothie-purpose-menu-item__media img {
+    height: 136px;
+  }
+
+  .smoothie-purpose-menu-item__select {
+    width: 38px;
+    height: 38px;
+  }
+}

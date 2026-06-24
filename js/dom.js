@@ -1,0 +1,129 @@
+(function () {
+  const dom = {
+    hero: document.querySelector("#hero"),
+    heroContent: document.querySelector("#hero-content"),
+    openLocationButton: document.querySelector("#open-location-scene"),
+    locationScene: document.querySelector("#location-scene"),
+    locationForm: document.querySelector("#location-form"),
+    locationTitle: document.querySelector("#location-title"),
+    locationDescription: document.querySelector("#location-description"),
+    postcodeLayer: document.querySelector("#postcode-layer"),
+    postcodeBackdrop: document.querySelector("#postcode-backdrop"),
+    postcodeContainer: document.querySelector("#postcode-container"),
+    closePostcodeButton: document.querySelector("#postcode-close"),
+    addressSearchButton:
+      document.querySelector("#address-search-button") ||
+      document.querySelector("#address-search"),
+    selectedAddress:
+      document.querySelector("#selected-address-text") ||
+      document.querySelector("#selected-address"),
+    selectedAddressMeta:
+      document.querySelector("#selected-zonecode-text") ||
+      document.querySelector("#selected-address-meta"),
+    addressChangeText: document.querySelector("#address-change-text"),
+    detailAddressWrap: document.querySelector("#detail-address-wrap"),
+    detailAddressField: document.querySelector("#detail-address-field"),
+    detailAddressInput: document.querySelector("#detail-address-input"),
+    addressTypeButtons: [
+      ...document.querySelectorAll("[data-address-type]"),
+    ],
+    mapPoints: [
+      ...document.querySelectorAll(".map-point"),
+    ],
+    locationContinueButton:
+      document.querySelector("#location-continue-button") ||
+      document.querySelector("#location-continue"),
+    smoothiePurposeScene: document.querySelector("#smoothie-purpose-scene"),
+    smoothiePurposeContent: document.querySelector("#smoothie-purpose-content"),
+    purposeBackButton: document.querySelector("#purpose-back-button"),
+    smoothiePurposeButtons: [
+      ...document.querySelectorAll("[data-smoothie-purpose]"),
+    ],
+    bodyProfileScene: document.querySelector("#body-profile-scene"),
+    bodyProfileForm: document.querySelector("#body-profile-form"),
+    bodyProfileBackButton: document.querySelector("#body-profile-back-button"),
+    bodyAgeInput: document.querySelector("#body-age-input"),
+    bodyHeightInput: document.querySelector("#body-height-input"),
+    bodyWeightInput: document.querySelector("#body-weight-input"),
+    bodyAgeError: document.querySelector("#body-age-error"),
+    bodyHeightError: document.querySelector("#body-height-error"),
+    bodyWeightError: document.querySelector("#body-weight-error"),
+    bodyProfileError: document.querySelector("#body-profile-error"),
+    bodyProfileSubmitButton: document.querySelector("#body-profile-submit-button"),
+    nutritionLoadingScene: document.querySelector("#nutrition-loading-scene"),
+    nutritionLoadingStep: document.querySelector("#nutrition-loading-step"),
+    nutritionLoader: document.querySelector(".nutrition-loader"),
+    checkoutPlaceholderScene: document.querySelector("#checkout-placeholder-scene"),
+    checkoutProductImage: document.querySelector("#checkout-product-image"),
+    checkoutProductName: document.querySelector("#checkout-product-name"),
+    checkoutProductDescription: document.querySelector("#checkout-product-description"),
+    checkoutProductPrice: document.querySelector("#checkout-product-price"),
+    checkoutCarbChip: document.querySelector("#checkout-carb-chip"),
+    checkoutProteinChip: document.querySelector("#checkout-protein-chip"),
+    checkoutFatChip: document.querySelector("#checkout-fat-chip"),
+    checkoutNutritionMoreButton: document.querySelector("#checkout-nutrition-more"),
+    checkoutSummaryProduct: document.querySelector("#checkout-summary-product"),
+    checkoutSummaryAddons: document.querySelector("#checkout-summary-addons"),
+    checkoutSummaryDelivery: document.querySelector("#checkout-summary-delivery"),
+    checkoutSummaryTotal: document.querySelector("#checkout-summary-total"),
+    checkoutAddOnButtons: [
+      ...document.querySelectorAll("[data-addon-id]"),
+    ],
+    checkoutPlaceholderButton: document.querySelector("#checkout-placeholder-button"),
+    nutritionModal: document.querySelector("#nutrition-modal"),
+    nutritionModalBackdrop: document.querySelector("#nutrition-modal-backdrop"),
+    nutritionModalClose: document.querySelector("#nutrition-modal-close"),
+    nutritionModalSummary: document.querySelector("#nutrition-modal-summary"),
+    nutritionModalDetails: document.querySelector("#nutrition-modal-details"),
+    nutritionModalDescription: document.querySelector("#nutrition-modal-description"),
+    nutritionModalTags: document.querySelector("#nutrition-modal-tags"),
+    paymentScene: document.querySelector("#payment-scene"),
+    paymentBackButton: document.querySelector("#payment-back-button"),
+    paymentProductImage: document.querySelector("#payment-product-image"),
+    paymentProductName: document.querySelector("#payment-product-name"),
+    paymentProductDescription: document.querySelector("#payment-product-description"),
+    paymentProductPrice: document.querySelector("#payment-product-price"),
+    paymentOrderAddOns: document.querySelector("#payment-order-addons"),
+    paymentNutritionMoreButton: document.querySelector("#payment-nutrition-more"),
+    paymentAddressEditButton: document.querySelector("#payment-address-edit"),
+    paymentAddressRoad: document.querySelector("#payment-address-road"),
+    paymentAddressDetail: document.querySelector("#payment-address-detail"),
+    paymentAddressType: document.querySelector("#payment-address-type"),
+    paymentDeliveryTime: document.querySelector("#payment-delivery-time"),
+    paymentPhoneInput: document.querySelector("#payment-phone-input"),
+    paymentSafeNumber: document.querySelector("#payment-safe-number"),
+    paymentMethodButtons: [
+      ...document.querySelectorAll("[data-payment-method]"),
+    ],
+    paymentSummaryProduct: document.querySelector("#payment-summary-product"),
+    paymentSummaryAddons: document.querySelector("#payment-summary-addons"),
+    paymentSummaryDelivery: document.querySelector("#payment-summary-delivery"),
+    paymentSummaryTotal: document.querySelector("#payment-summary-total"),
+    paymentSubmitButton: document.querySelector("#payment-submit-button"),
+    paymentFinalModal: document.querySelector("#payment-final-modal"),
+    paymentFinalBackdrop: document.querySelector("#payment-final-backdrop"),
+    paymentFinalConfirm: document.querySelector("#payment-final-confirm"),
+    addressEditModal: document.querySelector("#address-edit-modal"),
+    addressEditBackdrop: document.querySelector("#address-edit-backdrop"),
+    addressEditClose: document.querySelector("#address-edit-close"),
+    editAddressSearchButton: document.querySelector("#edit-address-search-button"),
+    editSelectedAddressText: document.querySelector("#edit-selected-address-text"),
+    editSelectedZonecodeText: document.querySelector("#edit-selected-zonecode-text"),
+    editDetailAddressInput: document.querySelector("#edit-detail-address-input"),
+    editAddressTypeButtons: [
+      ...document.querySelectorAll("[data-edit-address-type]"),
+    ],
+    addressEditSaveButton: document.querySelector("#address-edit-save"),
+    addressEditPostcode: document.querySelector("#address-edit-postcode"),
+    addressEditPostcodeClose: document.querySelector("#address-edit-postcode-close"),
+    addressEditPostcodeContainer: document.querySelector("#address-edit-postcode-container"),
+  };
+
+  dom.addressSearchPrompt = dom.selectedAddress;
+  dom.addressSearchResult = dom.addressSearchButton?.querySelector(
+    ".address-search__result",
+  );
+
+  window.Verden = window.Verden || {};
+  window.Verden.dom = dom;
+})();

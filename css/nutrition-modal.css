@@ -1,0 +1,167 @@
+.nutrition-modal {
+  position: absolute;
+  z-index: 30;
+  inset: 0;
+  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    opacity 260ms ease,
+    visibility 0s linear 280ms;
+}
+
+.nutrition-modal.is-open {
+  visibility: visible;
+  pointer-events: auto;
+  opacity: 1;
+  transition:
+    opacity 260ms ease,
+    visibility 0s linear 0s;
+}
+
+.nutrition-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(2, 9, 4, 0.62);
+  cursor: pointer;
+  backdrop-filter: blur(5px);
+}
+
+.nutrition-modal__sheet {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  max-height: min(78dvh, 680px);
+  overflow-y: auto;
+  padding: 22px 20px calc(22px + env(safe-area-inset-bottom));
+  border: 1px solid rgba(245, 242, 224, 0.62);
+  border-radius: 30px 30px 0 0;
+  background:
+    linear-gradient(145deg, rgba(21, 45, 27, 0.98), rgba(7, 22, 12, 0.98)),
+    var(--forest-deep);
+  box-shadow: 0 -24px 60px rgba(2, 10, 5, 0.48);
+  color: rgba(250, 247, 231, 0.96);
+  transform: translateY(18px);
+  transition: transform 320ms var(--ease-premium);
+}
+
+.nutrition-modal.is-open .nutrition-modal__sheet {
+  transform: translateY(0);
+}
+
+.nutrition-modal__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.nutrition-modal__header p {
+  margin: 0 0 7px;
+  color: rgba(205, 219, 183, 0.72);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 10px;
+  letter-spacing: 0.24em;
+}
+
+.nutrition-modal__header h3 {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: -0.055em;
+}
+
+.nutrition-modal__header small {
+  display: block;
+  margin-top: 7px;
+  color: rgba(229, 232, 210, 0.66);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.nutrition-modal__header button {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid rgba(245, 242, 224, 0.38);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(250, 247, 231, 0.92);
+  cursor: pointer;
+  font-size: 22px;
+}
+
+.nutrition-modal__summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.nutrition-modal__summary span,
+.nutrition-modal__details span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 44px;
+  padding: 0 13px;
+  border: 1px solid rgba(244, 241, 223, 0.22);
+  border-radius: 16px;
+  background: rgba(7, 22, 12, 0.28);
+  color: rgba(218, 226, 198, 0.72);
+  font-size: 12px;
+}
+
+.nutrition-modal__summary strong,
+.nutrition-modal__details strong {
+  color: rgba(250, 247, 231, 0.95);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.nutrition-modal__details {
+  display: grid;
+  gap: 7px;
+  margin-top: 16px;
+}
+
+.nutrition-modal__description {
+  margin-top: 16px;
+  padding: 14px;
+  border: 1px solid rgba(201, 208, 162, 0.26);
+  border-radius: 18px;
+  background: rgba(7, 22, 12, 0.22);
+}
+
+.nutrition-modal__description h4 {
+  margin: 0 0 7px;
+  font-size: 14px;
+}
+
+.nutrition-modal__description p {
+  margin: 0;
+  color: rgba(229, 232, 210, 0.74);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.nutrition-modal__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 14px;
+}
+
+.nutrition-modal__tags span {
+  min-height: 29px;
+  padding: 0 10px;
+  border: 1px solid rgba(201, 208, 162, 0.32);
+  border-radius: 999px;
+  color: rgba(239, 244, 219, 0.82);
+  font-size: 11px;
+  line-height: 29px;
+}
