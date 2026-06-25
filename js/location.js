@@ -333,12 +333,17 @@
       if (document.activeElement instanceof HTMLElement) {
         document.activeElement.blur();
       }
-      window.scrollTo(0, 0);
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
 
       saveAddressDraft();
       console.log("VERDEN address payload", selectedAddress);
       window.Verden.smoothiePurpose?.showSmoothiePurposeScene();
-      window.requestAnimationFrame(() => window.scrollTo(0, 0));
+      window.requestAnimationFrame(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      });
+      window.setTimeout(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      }, 80);
     }
 
     dom.locationForm?.addEventListener("submit", handleContinue);

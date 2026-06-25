@@ -132,7 +132,7 @@
   --cup-width: min(35.5%, 153px);
   --cup-height: min(56.6vw, 244px);
   position: absolute;
-  top: 35.2%;
+  top: 40.4%;
   right: 0;
   left: 0;
   height: 0;
@@ -285,10 +285,9 @@
   .product-stage {
     --cup-width: min(34.25%, 147px);
     --cup-height: min(54.65vw, 235px);
-    top: 33.7%;
+    top: 37.8%;
   }
   .hero__wordmark { top: 54.1%; }
   .region-cta { top: 72%; }
   .hero__signature { top: 84%; }
 }
-
