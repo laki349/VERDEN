@@ -14,8 +14,10 @@
 
 html,
 body {
+  width: 100%;
   min-height: 100%;
   margin: 0;
+  overflow-x: hidden;
   background: #0e1710;
 }
 
@@ -49,4 +51,3 @@ button:focus-visible {
   white-space: nowrap;
   border: 0;
 }
-

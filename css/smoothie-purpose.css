@@ -4,6 +4,7 @@
   inset: 0;
   visibility: hidden;
   overflow: hidden;
+  overflow-x: hidden;
   pointer-events: none;
   opacity: 0;
   transition:
@@ -84,6 +85,7 @@
   left: 20px;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
   opacity: 0;
   transform: translateY(10px);
   transition:
@@ -124,7 +126,9 @@
   gap: 12px;
   align-content: start;
   min-height: 0;
+  max-width: 100%;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 2px 0 16px;
   scrollbar-width: none;
 }
@@ -136,6 +140,7 @@
 .smoothie-purpose-menu-item {
   display: grid;
   width: 100%;
+  max-width: 100%;
   min-height: 190px;
   grid-template-columns: minmax(0, 1fr) 34%;
   column-gap: 13px;
@@ -247,6 +252,7 @@
   position: relative;
   display: grid;
   min-width: 0;
+  overflow: hidden;
   align-items: center;
   justify-items: center;
 }

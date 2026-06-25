@@ -329,9 +329,16 @@
       const { selectedAddress } = state.getState();
       if (!canContinue()) return;
 
+      dom.detailAddressInput?.blur();
+      if (document.activeElement instanceof HTMLElement) {
+        document.activeElement.blur();
+      }
+      window.scrollTo(0, 0);
+
       saveAddressDraft();
       console.log("VERDEN address payload", selectedAddress);
       window.Verden.smoothiePurpose?.showSmoothiePurposeScene();
+      window.requestAnimationFrame(() => window.scrollTo(0, 0));
     }
 
     dom.locationForm?.addEventListener("submit", handleContinue);
