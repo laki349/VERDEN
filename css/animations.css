@@ -8,7 +8,7 @@
 }
 
 @keyframes environment-shadow-arrival {
-  to { transform: translateX(-50%) scale(1); opacity: 1; }
+  to { transform: translateX(-50%) rotate(-2deg) scale(1); opacity: 1; }
 }
 
 @keyframes claim-arrival {

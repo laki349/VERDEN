@@ -154,15 +154,15 @@
 .product__environment-shadow {
   position: absolute;
   z-index: 0;
-  top: calc(var(--cup-height) - 56px);
-  left: calc(50% + 10px);
-  width: min(64%, 275px);
-  height: min(17vw, 73px);
+  top: calc(var(--cup-height) - 42px);
+  left: calc(50% + 14px);
+  width: min(58%, 250px);
+  height: min(13vw, 56px);
   border-radius: 50%;
-  background: radial-gradient(ellipse at 48% 42%, rgba(25, 31, 16, 0.34) 0%, rgba(27, 33, 17, 0.19) 42%, rgba(20, 28, 14, 0) 78%);
-  filter: blur(18px);
+  background: radial-gradient(ellipse at 52% 44%, rgba(13, 22, 9, 0.42) 0%, rgba(20, 28, 13, 0.24) 39%, rgba(20, 28, 14, 0) 76%);
+  filter: blur(22px);
   opacity: 0;
-  transform: translateX(-50%) scale(0.92);
+  transform: translateX(-50%) rotate(-2deg) scale(0.9);
   animation: environment-shadow-arrival 1s var(--ease-premium) 520ms forwards;
 }
 
@@ -184,15 +184,15 @@
 .product__shadow {
   position: absolute;
   z-index: 1;
-  bottom: -7px;
-  left: calc(50% + 4px);
-  width: 88%;
-  height: 24px;
-  transform: translateX(-50%);
+  bottom: -8px;
+  left: calc(50% + 9px);
+  width: 96%;
+  height: 28px;
+  transform: translateX(-50%) rotate(-2deg);
   border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(20, 28, 13, 0.36) 0%, rgba(24, 31, 15, 0.22) 38%, rgba(18, 28, 13, 0) 74%);
-  filter: blur(14px);
-  opacity: 0.9;
+  background: radial-gradient(ellipse, rgba(11, 19, 8, 0.42) 0%, rgba(18, 26, 12, 0.28) 40%, rgba(18, 28, 13, 0) 76%);
+  filter: blur(18px);
+  opacity: 0.82;
 }
 
 .region-cta {
