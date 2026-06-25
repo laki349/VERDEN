@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#172619" />
+    <title>VERDEN Admin</title>
+    <link rel="stylesheet" href="css/admin.css" />
+  </head>
+  <body>
+    <main class="admin-shell">
+      <header class="admin-header">
+        <p>VERDEN</p>
+        <h1>VERDEN Admin</h1>
+        <span>검증용 주문 의향 데이터</span>
+      </header>
+
+      <section class="admin-auth" aria-label="관리자 토큰 입력">
+        <label for="admin-token">Admin Token</label>
+        <div class="admin-auth__row">
+          <input id="admin-token" type="password" autocomplete="current-password" placeholder="관리자 토큰을 입력하세요" />
+          <button id="admin-token-save" type="button">저장</button>
+        </div>
+        <small id="admin-status">토큰을 입력하면 데이터를 조회할 수 있어요.</small>
+      </section>
+
+      <section class="admin-actions" aria-label="관리자 작업">
+        <button id="admin-refresh" type="button">데이터 새로고침</button>
+        <button id="admin-export" type="button">CSV 다운로드</button>
+      </section>
+
+      <section class="admin-summary" aria-label="요약 지표">
+        <article>
+          <span>총 이벤트 수</span>
+          <strong id="summary-events">-</strong>
+        </article>
+        <article>
+          <span>총 주문 수</span>
+          <strong id="summary-orders">-</strong>
+        </article>
+        <article>
+          <span>결제 페이지 진입</span>
+          <strong id="summary-payment-views">-</strong>
+        </article>
+        <article>
+          <span>주문 제출 성공</span>
+          <strong id="summary-order-success">-</strong>
+        </article>
+        <article>
+          <span>결제→주문 전환율</span>
+          <strong id="summary-conversion">-</strong>
+        </article>
+      </section>
+
+      <section class="admin-table-card" aria-labelledby="orders-title">
+        <div class="admin-table-card__header">
+          <h2 id="orders-title">최근 주문 50개</h2>
+          <small id="orders-count">-</small>
+        </div>
+        <div class="admin-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>주문시간</th>
+                <th>주문번호</th>
+                <th>상품명</th>
+                <th>총액</th>
+                <th>추가옵션</th>
+                <th>배송시간</th>
+                <th>주소 타입</th>
+                <th>연락처</th>
+                <th>결제수단</th>
+                <th>상태</th>
+              </tr>
+            </thead>
+            <tbody id="orders-body">
+              <tr>
+                <td colspan="10">토큰 저장 후 데이터를 조회하세요.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script src="js/admin.js"></script>
+  </body>
+</html>

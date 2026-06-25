@@ -1,5 +1,6 @@
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const ADMIN_TOKEN = process.env.ADMIN_TOKEN;
 
 function setJsonHeaders(res, statusCode = 200) {
   res.statusCode = statusCode;
@@ -20,6 +21,30 @@ function ensureSupabaseEnv(res) {
     sendJson(res, 500, {
       error: "Missing Supabase environment variables.",
       missing,
+    });
+    return false;
+  }
+
+  return true;
+}
+
+function ensureAdminAuth(req, res) {
+  if (!ADMIN_TOKEN) {
+    sendJson(res, 500, {
+      error: "Missing admin environment variable.",
+      missing: ["ADMIN_TOKEN"],
+    });
+    return false;
+  }
+
+  const authHeader = req.headers.authorization || "";
+  const token = authHeader.startsWith("Bearer ")
+    ? authHeader.slice("Bearer ".length).trim()
+    : "";
+
+  if (!token || token !== ADMIN_TOKEN) {
+    sendJson(res, 401, {
+      error: "Unauthorized admin request.",
     });
     return false;
   }
@@ -68,6 +93,7 @@ function createOrderNumber() {
 
 module.exports = {
   createOrderNumber,
+  ensureAdminAuth,
   ensureSupabaseEnv,
   getSupabaseHeaders,
   getSupabaseRestUrl,
