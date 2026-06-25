@@ -28,6 +28,9 @@
     window.Verden.payment?.resetPaymentUI();
     window.Verden.addressEditModal?.resetAddressEditModalUI();
     document.title = "VERDEN — Designed for your day.";
+    window.Verden.analytics?.trackEvent("hero_view", {
+      scene: "hero",
+    });
   }
 
   function initializeApp() {

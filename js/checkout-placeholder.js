@@ -208,6 +208,12 @@
     checkoutPlaceholderScene.setAttribute("aria-hidden", "false");
     dom.paymentScene?.setAttribute("aria-hidden", "true");
     renderCheckout();
+    window.Verden.analytics?.trackEvent("checkout_view", {
+      scene: "checkoutPlaceholder",
+      payload: {
+        checkout: state.getState().checkoutState,
+      },
+    });
     document.title = "주문 확인 — VERDEN";
   }
 

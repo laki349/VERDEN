@@ -169,6 +169,15 @@
       nutritionProfile: normalizedProfile,
       nutritionResult,
     });
+    window.Verden.analytics?.trackEvent("body_profile_submitted", {
+      scene: "bodyProfile",
+      payload: {
+        age: normalizedProfile.age,
+        heightCm: normalizedProfile.heightCm,
+        weightKg: normalizedProfile.weightKg,
+        smoothiePurpose,
+      },
+    });
     window.Verden.nutritionLoading?.startNutritionLoading();
   }
 

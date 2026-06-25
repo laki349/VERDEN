@@ -10,6 +10,9 @@
     if (!hero || !heroContent || !locationScene) return;
     if (hero.classList.contains("is-location")) return;
 
+    window.Verden.analytics?.trackEvent("location_cta_click", {
+      scene: "hero",
+    });
     state.setCurrentScene("location");
     hero.classList.add("is-location");
     heroContent.setAttribute("aria-hidden", "true");

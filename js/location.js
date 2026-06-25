@@ -233,6 +233,15 @@
 
     saveAddressDraft();
     renderAddressState();
+    window.Verden.analytics?.trackEvent("address_selected", {
+      scene: "location",
+      payload: {
+        zonecode: data.zonecode || "",
+        hasRoadAddress: Boolean(data.roadAddress),
+        hasJibunAddress: Boolean(data.jibunAddress),
+        hasBuildingName: Boolean(data.buildingName),
+      },
+    });
     closePostcodeSearch();
 
     window.setTimeout(() => {

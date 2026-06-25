@@ -106,6 +106,10 @@
 
     state.setSmoothiePurpose(purpose);
     saveSmoothiePurposeDraft(purpose);
+    window.Verden.analytics?.trackEvent("smoothie_purpose_selected", {
+      scene: "smoothiePurpose",
+      payload: purpose,
+    });
     showBodyProfileScene();
   }
 

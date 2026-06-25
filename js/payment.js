@@ -17,6 +17,7 @@
       method: null,
     },
   };
+  let isSubmittingOrder = false;
 
   function getModules() {
     return {
@@ -215,6 +216,12 @@
     checkoutPlaceholderScene?.setAttribute("aria-hidden", "true");
     paymentScene.setAttribute("aria-hidden", "false");
     renderPaymentScene();
+    window.Verden.analytics?.trackEvent("payment_view", {
+      scene: "payment",
+      payload: {
+        checkout: state.getState().checkoutState,
+      },
+    });
     document.title = "주문 결제 — VERDEN";
   }
 
@@ -235,11 +242,74 @@
     dom.paymentFinalModal?.setAttribute("aria-hidden", "true");
   }
 
-  function handlePaymentSubmit() {
+  async function handlePaymentSubmit() {
     updatePaymentState();
     if (!canSubmitPayment()) return;
-    console.log("VERDEN final order payload", JSON.stringify(buildPaymentState()));
-    openFinalModal();
+
+    const { dom } = getModules();
+    if (isSubmittingOrder) return;
+
+    isSubmittingOrder = true;
+    const orderPayload = buildPaymentState();
+
+    if (dom.paymentSubmitButton) {
+      dom.paymentSubmitButton.disabled = true;
+      dom.paymentSubmitButton.textContent = "주문 정보를 저장하고 있어요";
+    }
+
+    window.Verden.analytics?.trackEvent("order_submit_click", {
+      scene: "payment",
+      payload: {
+        total: orderPayload.total,
+        productName: orderPayload.baseProduct?.name,
+        addOnCount: orderPayload.selectedAddOns?.length || 0,
+        paymentMethod: orderPayload.payment?.method || null,
+      },
+    });
+
+    try {
+      if (!window.Verden.orderApi?.submitOrder) {
+        throw new Error("VERDEN order API module is not available.");
+      }
+
+      const result = await window.Verden.orderApi.submitOrder(orderPayload);
+      console.log("VERDEN final order payload", JSON.stringify({
+        ...orderPayload,
+        submissionId: result?.submissionId,
+        savedOrder: result?.order,
+      }));
+      window.Verden.analytics?.trackEvent("order_submit_success", {
+        scene: "payment",
+        payload: {
+          submissionId: result?.submissionId,
+          orderId: result?.order?.id,
+          orderNumber: result?.order?.order_number,
+          duplicate: Boolean(result?.duplicate),
+          total: orderPayload.total,
+        },
+      });
+      openFinalModal();
+    } catch (error) {
+      console.warn("VERDEN order submission failed", error);
+      window.Verden.analytics?.trackEvent("order_submit_error", {
+        scene: "payment",
+        payload: {
+          message: error.message,
+          total: orderPayload.total,
+        },
+      });
+      if (dom.paymentSubmitButton) {
+        dom.paymentSubmitButton.textContent = "주문 정보를 저장하지 못했어요. 다시 시도해주세요.";
+      }
+    } finally {
+      isSubmittingOrder = false;
+      if (dom.paymentSubmitButton) {
+        dom.paymentSubmitButton.disabled = !canSubmitPayment();
+        if (canSubmitPayment() && !dom.paymentFinalModal?.classList.contains("is-open")) {
+          window.setTimeout(updatePaymentState, 1800);
+        }
+      }
+    }
   }
 
   function initializePaymentEvents() {
@@ -290,6 +360,7 @@
     paymentDraft.contact.safeNumber = true;
     paymentDraft.payment.method = null;
     paymentDraft.payment.label = undefined;
+    isSubmittingOrder = false;
     dom.paymentScene?.setAttribute("aria-hidden", "true");
     if (dom.paymentPhoneInput) dom.paymentPhoneInput.value = "";
     if (dom.paymentSafeNumber) dom.paymentSafeNumber.checked = true;
