@@ -13,6 +13,7 @@
     summaryPaymentViews: document.querySelector("#summary-payment-views"),
     summaryOrderSuccess: document.querySelector("#summary-order-success"),
     summaryConversion: document.querySelector("#summary-conversion"),
+    funnelBody: document.querySelector("#funnel-body"),
     ordersBody: document.querySelector("#orders-body"),
     ordersCount: document.querySelector("#orders-count"),
   };
@@ -80,6 +81,26 @@
     elements.summaryConversion.textContent = `${summary.paymentToOrderRate || 0}%`;
   }
 
+  function renderFunnel(funnel) {
+    if (!elements.funnelBody) return;
+
+    if (!Array.isArray(funnel) || funnel.length === 0) {
+      elements.funnelBody.innerHTML = '<tr><td colspan="4">아직 퍼널 이벤트 데이터가 없어요.</td></tr>';
+      return;
+    }
+
+    elements.funnelBody.innerHTML = funnel
+      .map((step) => `
+        <tr>
+          <td>${escapeHtml(step.label || step.key || "-")}</td>
+          <td>${Number(step.count || 0).toLocaleString("ko-KR")}</td>
+          <td>${Number(step.conversionRate || 0).toFixed(1)}%</td>
+          <td>${Number(step.dropoffRate || 0).toFixed(1)}%</td>
+        </tr>
+      `)
+      .join("");
+  }
+
   function renderOrders(orders) {
     elements.ordersCount.textContent = `${orders.length.toLocaleString("ko-KR")}건`;
 
@@ -143,6 +164,7 @@
     const { orders } = await ordersResponse.json();
 
     renderSummary(summary);
+    renderFunnel(summary.funnel || []);
     renderOrders(orders || []);
     showDashboard();
     setStatus("데이터를 불러왔어요.");

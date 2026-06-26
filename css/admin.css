@@ -155,6 +155,7 @@ button {
 }
 
 .admin-table-card {
+  margin-bottom: 18px;
   padding: 18px;
 }
 
@@ -182,6 +183,18 @@ table {
   width: 100%;
   min-width: 980px;
   border-collapse: collapse;
+}
+
+.admin-funnel-table {
+  min-width: 640px;
+}
+
+.admin-funnel-table td:nth-child(2),
+.admin-funnel-table td:nth-child(3),
+.admin-funnel-table td:nth-child(4) {
+  color: var(--admin-sage);
+  font-weight: 700;
+  white-space: nowrap;
 }
 
 th,
