@@ -753,102 +753,83 @@
     right: 18px;
     bottom: 5%;
     left: 18px;
-    display: flex;
-    overflow-x: hidden;
-    overflow-y: auto;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 14px;
-    -webkit-overflow-scrolling: touch;
+    display: grid;
+    grid-template-columns: 38% 62%;
+    align-items: center;
+    gap: 0;
+    overflow: hidden;
   }
 
   .korea-map {
-    order: 2;
-    align-self: flex-start;
-    width: min(44vw, 240px);
-    transform: translateX(0);
+    align-self: center;
+    width: min(120%, 300px);
+    transform: translateX(-7px);
   }
 
   .seoul-map {
-    max-height: 205px;
+    max-height: 340px;
   }
 
   .seoul-map__image {
-    max-height: 205px;
+    max-height: 340px;
     transform: scaleY(1.1);
     transform-origin: center;
   }
 
   .map-point {
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
   }
 
   .map-point__glow {
-    width: 20px;
-    height: 20px;
+    width: 23px;
+    height: 23px;
   }
 
   .map-point__dot {
-    width: 6px;
-    height: 6px;
+    width: 7px;
+    height: 7px;
   }
 
   .map-point__label {
-    top: -11px;
-    padding: 2px 5px 3px;
-    font-size: 8px;
+    top: -12px;
+    padding: 2px 6px 3px;
+    font-size: 9px;
   }
 
   .location-form {
-    display: contents;
+    display: block;
     padding-left: 0;
   }
 
   .location-form__copy {
-    order: 1;
-    margin-bottom: 0;
+    margin-bottom: 18px;
     padding-top: 2px;
-  }
-
-  .address-search {
-    order: 3;
-  }
-
-  .detail-address-wrap {
-    order: 4;
-  }
-
-  .address-types {
-    order: 5;
-  }
-
-  .location-form__continue {
-    order: 6;
   }
 
   .location-scene.is-address-selected .location-scene__body {
     top: 16%;
     bottom: 3%;
+    grid-template-columns: 34% 66%;
   }
 
   .location-scene.is-address-selected .korea-map {
-    width: min(40vw, 220px);
+    width: min(112%, 260px);
     opacity: 0.56;
-    transform: translateX(0) scale(0.9);
+    transform: translate(-7px, 18px) scale(0.84);
   }
 
   .location-scene.is-address-selected .seoul-map,
   .location-scene.is-address-selected .seoul-map__image {
-    max-height: 170px;
+    max-height: 260px;
   }
 
   .hero.is-location .location-scene.is-address-selected .location-form {
-    transform: none;
+    transform: translateY(-18px);
   }
 
   .location-scene.is-address-selected .location-form__copy {
-    margin-bottom: 0;
+    margin-bottom: 12px;
   }
 }
 
