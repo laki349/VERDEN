@@ -669,7 +669,7 @@
   grid-template-columns: 34% 66%;
 }
 
-.location-scene.is-address-selected .korea-map {
+  .location-scene.is-address-selected .korea-map {
   opacity: 0.64;
   transform: translate(-10px, 18px) scale(0.84);
 }
@@ -762,17 +762,18 @@
 
   .korea-map {
     align-self: center;
-    width: min(120%, 300px);
-    transform: translateX(-7px);
+    width: min(135%, 340px);
+    transform: translateX(-15px) scaleY(1.12);
+    transform-origin: 44% 54%;
   }
 
   .seoul-map {
-    max-height: 340px;
+    max-height: 310px;
   }
 
   .seoul-map__image {
-    max-height: 340px;
-    transform: scaleY(1.1);
+    max-height: 310px;
+    transform: scaleY(1.06);
     transform-origin: center;
   }
 
@@ -797,6 +798,26 @@
     font-size: 9px;
   }
 
+  .seoul-map__point--sinchon {
+    top: 51%;
+    left: 36%;
+  }
+
+  .seoul-map__point--gwanghwamun {
+    top: 43%;
+    left: 49%;
+  }
+
+  .seoul-map__point--yeouido {
+    top: 66%;
+    left: 36%;
+  }
+
+  .seoul-map__point--gangnam {
+    top: 75%;
+    left: 59%;
+  }
+
   .location-form {
     display: block;
     padding-left: 0;
@@ -813,15 +834,15 @@
     grid-template-columns: 34% 66%;
   }
 
-  .location-scene.is-address-selected .korea-map {
-    width: min(112%, 260px);
+.location-scene.is-address-selected .korea-map {
+    width: min(124%, 300px);
     opacity: 0.56;
-    transform: translate(-7px, 18px) scale(0.84);
+    transform: translate(-16px, 18px) scale(0.84) scaleY(1.12);
   }
 
   .location-scene.is-address-selected .seoul-map,
   .location-scene.is-address-selected .seoul-map__image {
-    max-height: 260px;
+    max-height: 250px;
   }
 
   .hero.is-location .location-scene.is-address-selected .location-form {
