@@ -764,40 +764,40 @@
 
   .korea-map {
     order: 2;
-    align-self: center;
-    width: min(100%, 370px);
+    align-self: flex-start;
+    width: min(44vw, 240px);
     transform: translateX(0);
   }
 
   .seoul-map {
-    max-height: 310px;
+    max-height: 205px;
   }
 
   .seoul-map__image {
-    max-height: 310px;
-    transform: scaleY(1.18);
+    max-height: 205px;
+    transform: scaleY(1.1);
     transform-origin: center;
   }
 
   .map-point {
-    width: 34px;
-    height: 34px;
+    width: 28px;
+    height: 28px;
   }
 
   .map-point__glow {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
   }
 
   .map-point__dot {
-    width: 7px;
-    height: 7px;
+    width: 6px;
+    height: 6px;
   }
 
   .map-point__label {
-    top: -12px;
-    padding: 3px 6px;
-    font-size: 9px;
+    top: -11px;
+    padding: 2px 5px 3px;
+    font-size: 8px;
   }
 
   .location-form {
@@ -833,14 +833,14 @@
   }
 
   .location-scene.is-address-selected .korea-map {
-    width: min(100%, 325px);
+    width: min(40vw, 220px);
     opacity: 0.56;
     transform: translateX(0) scale(0.9);
   }
 
   .location-scene.is-address-selected .seoul-map,
   .location-scene.is-address-selected .seoul-map__image {
-    max-height: 225px;
+    max-height: 170px;
   }
 
   .hero.is-location .location-scene.is-address-selected .location-form {
