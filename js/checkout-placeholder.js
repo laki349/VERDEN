@@ -1,6 +1,6 @@
 (function () {
   const CHECKOUT_STORAGE_KEY = "verdenCheckoutDraft";
-  const DELIVERY_FEE = 2500;
+  const DELIVERY_FEE = 0;
 
   const PRODUCT_CONFIG = {
     mealReplacement: {
@@ -35,20 +35,10 @@
       name: "단백질 추가",
       price: 2000,
     },
-    satietyBoost: {
-      id: "satietyBoost",
-      name: "포만감 부스트",
-      price: 2000,
-    },
     lowSugarBlend: {
       id: "lowSugarBlend",
       name: "저당 과일 배합",
       price: 1500,
-    },
-    healthySandwich: {
-      id: "healthySandwich",
-      name: "건강 샌드위치",
-      price: 6000,
     },
   };
 
@@ -151,7 +141,11 @@
       dom.checkoutSummaryAddons.textContent = formatWon(checkoutState.addOnsAmount);
     }
     if (dom.checkoutSummaryDelivery) {
-      dom.checkoutSummaryDelivery.textContent = formatWon(checkoutState.deliveryFee);
+      dom.checkoutSummaryDelivery.innerHTML = `
+        <span>첫배송 할인</span>
+        <s>${formatWon(2500)}</s>
+        <strong>${formatWon(checkoutState.deliveryFee)}</strong>
+      `;
     }
     if (dom.checkoutSummaryTotal) {
       dom.checkoutSummaryTotal.textContent = formatWon(checkoutState.total);

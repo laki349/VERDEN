@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="css/smoothie-purpose.css?v=20260625-mobile1" />
     <link rel="stylesheet" href="css/body-profile.css" />
     <link rel="stylesheet" href="css/nutrition-loading.css" />
-    <link rel="stylesheet" href="css/checkout-placeholder.css" />
+    <link rel="stylesheet" href="css/checkout-placeholder.css?v=20260626-firstdelivery1" />
     <link rel="stylesheet" href="css/nutrition-modal.css" />
-    <link rel="stylesheet" href="css/payment.css" />
+    <link rel="stylesheet" href="css/payment.css?v=20260626-firstdelivery1" />
     <link rel="stylesheet" href="css/address-edit-modal.css" />
     <link rel="stylesheet" href="css/animations.css?v=20260625-heroshadow1" />
   </head>
@@ -361,30 +361,12 @@
                   <b>추가</b>
                 </button>
 
-                <button class="checkout-addon" type="button" data-addon-id="satietyBoost" aria-pressed="false">
-                  <span>
-                    <strong>포만감 부스트</strong>
-                    <small>오트·치아씨드 기반으로 더 든든하게</small>
-                  </span>
-                  <em>+2,000원</em>
-                  <b>추가</b>
-                </button>
-
                 <button class="checkout-addon" type="button" data-addon-id="lowSugarBlend" aria-pressed="false">
                   <span>
                     <strong>저당 과일 배합</strong>
                     <small>당 부담을 줄인 과일 조합</small>
                   </span>
                   <em>+1,500원</em>
-                  <b>추가</b>
-                </button>
-
-                <button class="checkout-addon" type="button" data-addon-id="healthySandwich" aria-pressed="false">
-                  <span>
-                    <strong>건강 샌드위치</strong>
-                    <small>함께 먹기 좋은 가벼운 사이드</small>
-                  </span>
-                  <em>+6,000원</em>
                   <b>추가</b>
                 </button>
               </div>
@@ -402,7 +384,11 @@
                 </div>
                 <div>
                   <dt>배송비</dt>
-                  <dd id="checkout-summary-delivery">2,500원</dd>
+                  <dd id="checkout-summary-delivery" class="summary-delivery-discount">
+                    <span>첫배송 할인</span>
+                    <s>2,500원</s>
+                    <strong>0원</strong>
+                  </dd>
                 </div>
                 <div class="checkout-summary__total">
                   <dt>총 결제금액</dt>
@@ -490,7 +476,14 @@
               <dl>
                 <div><dt>상품금액</dt><dd id="payment-summary-product">8,900원</dd></div>
                 <div><dt>추가옵션</dt><dd id="payment-summary-addons">0원</dd></div>
-                <div><dt>배송비</dt><dd id="payment-summary-delivery">2,500원</dd></div>
+                <div>
+                  <dt>배송비</dt>
+                  <dd id="payment-summary-delivery" class="summary-delivery-discount">
+                    <span>첫배송 할인</span>
+                    <s>2,500원</s>
+                    <strong>0원</strong>
+                  </dd>
+                </div>
                 <div class="payment-summary-card__total"><dt>총 결제금액</dt><dd id="payment-summary-total">11,400원</dd></div>
               </dl>
             </section>
@@ -586,9 +579,9 @@
     <script src="js/body-profile.js?v=20260624-payment3"></script>
     <script src="js/nutrition-loading.js?v=20260624-payment3"></script>
     <script src="js/nutrition-modal.js?v=20260624-payment3"></script>
-    <script src="js/checkout-placeholder.js?v=20260625-diet1"></script>
+    <script src="js/checkout-placeholder.js?v=20260626-firstdelivery1"></script>
     <script src="js/address-edit-modal.js?v=20260624-payment3"></script>
-    <script src="js/payment.js?v=20260624-payment3"></script>
+    <script src="js/payment.js?v=20260626-firstdelivery1"></script>
     <script src="js/main.js?v=20260624-payment3"></script>
   </body>
 </html>

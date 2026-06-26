@@ -156,7 +156,13 @@
     const { dom } = getModules();
     if (dom.paymentSummaryProduct) dom.paymentSummaryProduct.textContent = formatWon(checkoutState.productAmount);
     if (dom.paymentSummaryAddons) dom.paymentSummaryAddons.textContent = formatWon(checkoutState.addOnsAmount);
-    if (dom.paymentSummaryDelivery) dom.paymentSummaryDelivery.textContent = formatWon(checkoutState.deliveryFee);
+    if (dom.paymentSummaryDelivery) {
+      dom.paymentSummaryDelivery.innerHTML = `
+        <span>첫배송 할인</span>
+        <s>${formatWon(2500)}</s>
+        <strong>${formatWon(checkoutState.deliveryFee)}</strong>
+      `;
+    }
     if (dom.paymentSummaryTotal) dom.paymentSummaryTotal.textContent = formatWon(checkoutState.total);
   }
 

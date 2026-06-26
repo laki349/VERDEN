@@ -392,6 +392,30 @@
   font-weight: 600;
 }
 
+.checkout-summary .summary-delivery-discount {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 7px;
+}
+
+.checkout-summary .summary-delivery-discount span {
+  color: rgba(196, 218, 164, 0.82);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.checkout-summary .summary-delivery-discount s {
+  color: rgba(220, 227, 200, 0.48);
+  font-weight: 500;
+}
+
+.checkout-summary .summary-delivery-discount strong {
+  color: rgba(250, 247, 231, 0.96);
+  font-size: 13px;
+  font-weight: 700;
+}
+
 .checkout-summary__total {
   margin-top: 4px;
   padding-top: 12px;
