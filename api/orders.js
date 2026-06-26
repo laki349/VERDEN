@@ -20,8 +20,13 @@ function buildOrderRecord(body, req) {
   const checkout = body.checkout || {};
   const baseProduct = checkout.baseProduct || body.baseProduct || {};
   const paymentMethod = body.payment || {};
+  const deliveryDate = body.delivery_date || body.deliveryDate || paymentMethod.delivery_date || paymentMethod.deliveryDate || null;
+  const deliveryTime = body.delivery_time || body.deliveryTime || paymentMethod.delivery_time || paymentMethod.deliveryTime || null;
   const paymentDetails = {
-    deliveryTime: body.deliveryTime || null,
+    deliveryDate,
+    delivery_date: deliveryDate,
+    deliveryTime,
+    delivery_time: deliveryTime,
     contact: body.contact || {},
     payment: paymentMethod,
   };
@@ -48,7 +53,8 @@ function buildOrderRecord(body, req) {
     delivery_fee: Number(checkout.deliveryFee || 0),
     total: Number(checkout.total || 0),
 
-    delivery_time: body.deliveryTime || null,
+    delivery_date: deliveryDate,
+    delivery_time: deliveryTime,
     contact_phone: body.contact?.phone || null,
     safe_number: body.contact?.safeNumber ?? true,
     payment_method: paymentMethod.method || body.paymentMethod || null,

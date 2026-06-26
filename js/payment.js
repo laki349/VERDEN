@@ -8,6 +8,7 @@
   };
 
   const paymentDraft = {
+    deliveryDate: "",
     deliveryTime: "",
     contact: {
       phone: "",
@@ -66,6 +67,33 @@
     return options;
   }
 
+  function formatDateValue(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
+
+  function configureDeliveryDateField() {
+    const { dom } = getModules();
+    if (!dom.paymentDeliveryDate) return;
+
+    const today = new Date();
+    const maxDate = new Date(today);
+    maxDate.setDate(today.getDate() + 14);
+
+    dom.paymentDeliveryDate.min = formatDateValue(today);
+    dom.paymentDeliveryDate.max = formatDateValue(maxDate);
+  }
+
+  function isDeliveryDateInRange(value) {
+    if (!value) return false;
+    const { dom } = getModules();
+    const min = dom.paymentDeliveryDate?.min;
+    const max = dom.paymentDeliveryDate?.max;
+    return Boolean((!min || value >= min) && (!max || value <= max));
+  }
+
   function populateDeliveryTimeOptions() {
     const { dom } = getModules();
     if (!dom.paymentDeliveryTime || dom.paymentDeliveryTime.dataset.ready === "true") return;
@@ -108,9 +136,18 @@
         detailAddress: currentState.selectedAddress.detailAddress,
         addressType: currentState.selectedAddress.addressType,
       },
+      deliveryDate: paymentDraft.deliveryDate,
+      delivery_date: paymentDraft.deliveryDate,
       deliveryTime: paymentDraft.deliveryTime,
+      delivery_time: paymentDraft.deliveryTime,
       contact: { ...paymentDraft.contact },
-      payment: { ...paymentDraft.payment },
+      payment: {
+        ...paymentDraft.payment,
+        deliveryDate: paymentDraft.deliveryDate,
+        delivery_date: paymentDraft.deliveryDate,
+        deliveryTime: paymentDraft.deliveryTime,
+        delivery_time: paymentDraft.deliveryTime,
+      },
     };
   }
 
@@ -179,6 +216,7 @@
     const state = buildPaymentState();
     return Boolean(
       state.address.roadAddress &&
+        isDeliveryDateInRange(state.deliveryDate) &&
         state.deliveryTime &&
         state.contact.phone.replace(/\D/g, "").length >= 10 &&
         state.payment.method,
@@ -196,7 +234,7 @@
       dom.paymentSubmitButton.disabled = !isReady;
       dom.paymentSubmitButton.textContent = isReady
         ? `${formatWon(paymentState.total)} 결제하기`
-        : "배송시간 · 연락처 · 결제수단을 확인해주세요";
+        : "배송날짜 · 시간 · 연락처 · 결제수단을 확인해주세요";
     }
   }
 
@@ -321,6 +359,7 @@
   function initializePaymentEvents() {
     const { addressEditModal, dom } = getModules();
 
+    configureDeliveryDateField();
     populateDeliveryTimeOptions();
     dom.paymentBackButton?.addEventListener("click", showCheckoutScene);
     dom.paymentAddressEditButton?.addEventListener("click", addressEditModal?.openAddressEditModal);
@@ -329,6 +368,10 @@
     });
     dom.paymentDeliveryTime?.addEventListener("change", (event) => {
       paymentDraft.deliveryTime = event.currentTarget.value;
+      updatePaymentState();
+    });
+    dom.paymentDeliveryDate?.addEventListener("change", (event) => {
+      paymentDraft.deliveryDate = event.currentTarget.value;
       updatePaymentState();
     });
     dom.paymentPhoneInput?.addEventListener("input", (event) => {
@@ -361,6 +404,7 @@
 
   function resetPaymentUI() {
     const { dom, state } = getModules();
+    paymentDraft.deliveryDate = "";
     paymentDraft.deliveryTime = "";
     paymentDraft.contact.phone = "";
     paymentDraft.contact.safeNumber = true;
@@ -370,6 +414,7 @@
     dom.paymentScene?.setAttribute("aria-hidden", "true");
     if (dom.paymentPhoneInput) dom.paymentPhoneInput.value = "";
     if (dom.paymentSafeNumber) dom.paymentSafeNumber.checked = true;
+    if (dom.paymentDeliveryDate) dom.paymentDeliveryDate.value = "";
     if (dom.paymentDeliveryTime) dom.paymentDeliveryTime.value = "";
     closeFinalModal();
     renderPaymentMethods();

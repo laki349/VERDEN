@@ -256,6 +256,7 @@
 }
 
 .delivery-time-field select,
+.delivery-time-field input[type="date"],
 .payment-contact-card input[type="tel"] {
   width: 100%;
   min-height: 48px;
@@ -277,7 +278,18 @@
     linear-gradient(135deg, rgba(9, 27, 14, 0.56), rgba(6, 20, 11, 0.34));
 }
 
+.delivery-time-field input[type="date"] {
+  color-scheme: dark;
+}
+
+.delivery-time-field input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.78;
+  filter: invert(92%) sepia(11%) saturate(376%) hue-rotate(24deg);
+}
+
 .delivery-time-field select:focus,
+.delivery-time-field input[type="date"]:focus,
 .payment-contact-card input[type="tel"]:focus {
   border-color: rgba(217, 226, 184, 0.78);
   box-shadow: 0 0 0 3px rgba(170, 200, 140, 0.1);

@@ -42,6 +42,7 @@ create table if not exists orders (
   delivery_fee integer,
   total integer,
 
+  delivery_date text,
   delivery_time text,
   contact_phone text,
   safe_number boolean default true,
@@ -59,5 +60,8 @@ create index if not exists orders_session_id_idx on orders(session_id);
 create index if not exists orders_created_at_idx on orders(created_at desc);
 create index if not exists orders_status_idx on orders(status);
 create index if not exists orders_total_idx on orders(total);
+
+alter table orders
+add column if not exists delivery_date text;
 
 alter table orders enable row level security;

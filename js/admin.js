@@ -75,7 +75,7 @@
     elements.ordersCount.textContent = `${orders.length.toLocaleString("ko-KR")}건`;
 
     if (orders.length === 0) {
-      elements.ordersBody.innerHTML = '<tr><td colspan="10">아직 주문 의향 데이터가 없어요.</td></tr>';
+      elements.ordersBody.innerHTML = '<tr><td colspan="11">아직 주문 의향 데이터가 없어요.</td></tr>';
       return;
     }
 
@@ -87,6 +87,7 @@
           <td>${escapeHtml(order.product_name || "-")}</td>
           <td>${escapeHtml(formatWon(order.total))}</td>
           <td>${escapeHtml(formatAddOns(order.add_ons))}</td>
+          <td>${escapeHtml(order.delivery_date || "-")}</td>
           <td>${escapeHtml(order.delivery_time || "-")}</td>
           <td>${escapeHtml(getAddressType(order.address))}</td>
           <td>${escapeHtml(maskPhone(order.contact_phone))}</td>

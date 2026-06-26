@@ -15,6 +15,7 @@ const ORDER_SELECT = [
   "product_name",
   "total",
   "add_ons",
+  "delivery_date",
   "delivery_time",
   "address",
   "contact_phone",

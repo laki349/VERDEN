@@ -89,6 +89,7 @@
     paymentAddressRoad: document.querySelector("#payment-address-road"),
     paymentAddressDetail: document.querySelector("#payment-address-detail"),
     paymentAddressType: document.querySelector("#payment-address-type"),
+    paymentDeliveryDate: document.querySelector("#payment-delivery-date"),
     paymentDeliveryTime: document.querySelector("#payment-delivery-time"),
     paymentPhoneInput: document.querySelector("#payment-phone-input"),
     paymentSafeNumber: document.querySelector("#payment-safe-number"),
