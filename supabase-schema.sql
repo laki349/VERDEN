@@ -65,3 +65,19 @@ alter table orders
 add column if not exists delivery_date text;
 
 alter table orders enable row level security;
+
+create table if not exists waitlist (
+  id uuid primary key default gen_random_uuid(),
+  session_id text,
+  email text not null,
+  order_id uuid,
+  order_number text,
+  smoothie_type text,
+  source text not null default 'verden-launch-waitlist',
+  created_at timestamptz not null default now()
+);
+
+create unique index if not exists waitlist_email_unique_idx on waitlist(lower(email));
+create index if not exists waitlist_created_at_idx on waitlist(created_at desc);
+
+alter table waitlist enable row level security;

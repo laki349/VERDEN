@@ -498,6 +498,35 @@
   margin: 10px 0 18px;
   color: rgba(229, 232, 210, 0.68);
   font-size: 12px;
+  line-height: 1.65;
+}
+
+.payment-final-modal__form {
+  display: grid;
+  gap: 10px;
+}
+
+.payment-final-modal__form input {
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid rgba(244, 241, 223, 0.46);
+  border-radius: 999px;
+  background: rgba(7, 22, 12, 0.36);
+  color: rgba(250, 247, 231, 0.96);
+  font: inherit;
+  font-size: 16px;
+  outline: 0;
+  padding: 0 17px;
+  text-align: center;
+}
+
+.payment-final-modal__form input::placeholder {
+  color: rgba(229, 232, 210, 0.52);
+}
+
+.payment-final-modal__form input:focus {
+  border-color: rgba(217, 226, 184, 0.82);
+  box-shadow: 0 0 0 3px rgba(170, 200, 140, 0.1);
 }
 
 .payment-final-modal__panel button {
@@ -510,4 +539,27 @@
   cursor: pointer;
   font-size: 14px;
   font-weight: 700;
+}
+
+.payment-final-modal__panel button:disabled {
+  background: rgba(230, 232, 209, 0.22);
+  color: rgba(244, 241, 223, 0.52);
+  cursor: default;
+}
+
+.payment-final-modal__status {
+  display: block;
+  min-height: 18px;
+  margin: 12px 0 0;
+  color: rgba(217, 226, 184, 0.9);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.payment-final-modal__status.is-error {
+  color: rgba(255, 211, 190, 0.95);
+}
+
+.payment-final-modal__return {
+  margin-top: 12px;
 }

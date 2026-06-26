@@ -498,12 +498,22 @@
           </div>
 
           <div class="payment-final-modal" id="payment-final-modal" aria-hidden="true">
-            <button class="payment-final-modal__backdrop" id="payment-final-backdrop" type="button" aria-label="결제 준비 완료 안내 닫기"></button>
+            <button class="payment-final-modal__backdrop" id="payment-final-backdrop" type="button" aria-label="출시 알림 신청 닫기"></button>
             <div class="payment-final-modal__panel" role="dialog" aria-modal="true" aria-labelledby="payment-final-title">
               <p>VERDEN</p>
-              <h3 id="payment-final-title">주문 정보가 준비되었어요.</h3>
-              <small>이제 실제 결제 연동만 남았어요.</small>
-              <button id="payment-final-confirm" type="button">확인</button>
+              <h3 id="payment-final-title">출시 예정입니다</h3>
+              <small id="payment-final-copy">
+                VERDEN에 관심 가져주셔서 감사합니다.
+                현재 서비스 지역과 배송 일정을 준비 중이에요.
+                출시 소식과 첫배송 혜택을 가장 먼저 알려드릴게요.
+              </small>
+              <form class="payment-final-modal__form" id="payment-final-form" novalidate>
+                <label for="payment-final-email" class="sr-only">이메일</label>
+                <input id="payment-final-email" type="email" inputmode="email" autocomplete="email" placeholder="이메일을 입력해주세요" />
+                <button id="payment-final-submit" type="submit">출시 알림 받기</button>
+              </form>
+              <span class="payment-final-modal__status" id="payment-final-status" aria-live="polite"></span>
+              <button class="payment-final-modal__return" id="payment-final-confirm" type="button" hidden>처음으로 돌아가기</button>
             </div>
           </div>
         </section>
@@ -576,6 +586,7 @@
     <script src="js/state.js?v=20260624-payment3"></script>
     <script src="js/analytics.js?v=20260625-backend1"></script>
     <script src="js/order-api.js?v=20260625-backend1"></script>
+    <script src="js/waitlist-api.js?v=20260626-waitlist1"></script>
     <script src="js/nutrition-engine.js?v=20260625-diet1"></script>
     <script src="js/hero.js?v=20260624-payment3"></script>
     <script src="js/location.js?v=20260625-ioszoom1"></script>
@@ -585,7 +596,7 @@
     <script src="js/nutrition-modal.js?v=20260624-payment3"></script>
     <script src="js/checkout-placeholder.js?v=20260626-firstdelivery1"></script>
     <script src="js/address-edit-modal.js?v=20260624-payment3"></script>
-    <script src="js/payment.js?v=20260626-deliverydate1"></script>
+    <script src="js/payment.js?v=20260626-waitlist1"></script>
     <script src="js/main.js?v=20260624-payment3"></script>
   </body>
 </html>

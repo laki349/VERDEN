@@ -19,6 +19,8 @@
     },
   };
   let isSubmittingOrder = false;
+  let isSubmittingWaitlist = false;
+  let finalOrderContext = null;
 
   function getModules() {
     return {
@@ -273,17 +275,133 @@
     getModules().checkout?.showCheckoutPlaceholderScene();
   }
 
-  function openFinalModal() {
-    const { dom } = getModules();
-    dom.paymentFinalModal?.classList.add("is-open");
-    dom.paymentFinalModal?.setAttribute("aria-hidden", "false");
-    dom.paymentFinalConfirm?.focus();
-  }
-
   function closeFinalModal() {
     const { dom } = getModules();
     dom.paymentFinalModal?.classList.remove("is-open");
     dom.paymentFinalModal?.setAttribute("aria-hidden", "true");
+  }
+
+  function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email || "").trim());
+  }
+
+  function setFinalStatus(message, isError = false) {
+    const { dom } = getModules();
+    if (!dom.paymentFinalStatus) return;
+    dom.paymentFinalStatus.textContent = message;
+    dom.paymentFinalStatus.classList.toggle("is-error", isError);
+  }
+
+  function resetFinalModalForm() {
+    const { dom } = getModules();
+    isSubmittingWaitlist = false;
+    finalOrderContext = null;
+    if (dom.paymentFinalForm) dom.paymentFinalForm.hidden = false;
+    if (dom.paymentFinalEmail) {
+      dom.paymentFinalEmail.disabled = false;
+      dom.paymentFinalEmail.value = "";
+    }
+    if (dom.paymentFinalSubmit) {
+      dom.paymentFinalSubmit.disabled = false;
+      dom.paymentFinalSubmit.textContent = "출시 알림 받기";
+    }
+    if (dom.paymentFinalConfirm) dom.paymentFinalConfirm.hidden = true;
+    setFinalStatus("");
+  }
+
+  function getWaitlistPayload(email) {
+    const { state } = getModules();
+    const currentState = state.getState();
+    const order = finalOrderContext?.savedOrder || {};
+    const orderPayload = finalOrderContext?.orderPayload || {};
+
+    return {
+      email,
+      session_id: window.Verden.analytics?.getSessionId?.() || "",
+      order_id: order.id || null,
+      order_number: order.order_number || null,
+      smoothie_type: currentState.smoothiePurpose?.type || orderPayload.smoothiePurpose?.type || null,
+    };
+  }
+
+  function openFinalModal(context = {}) {
+    const { dom } = getModules();
+    resetFinalModalForm();
+    finalOrderContext = context;
+    dom.paymentFinalModal?.classList.add("is-open");
+    dom.paymentFinalModal?.setAttribute("aria-hidden", "false");
+    window.Verden.analytics?.trackEvent("launch_waitlist_view", {
+      scene: "payment",
+      payload: {
+        orderNumber: context.savedOrder?.order_number || null,
+        smoothieType: context.orderPayload?.smoothiePurpose?.type || null,
+      },
+    });
+    dom.paymentFinalEmail?.focus();
+  }
+
+  async function handleWaitlistSubmit(event) {
+    event.preventDefault();
+    const { dom } = getModules();
+    if (isSubmittingWaitlist) return;
+
+    const email = String(dom.paymentFinalEmail?.value || "").trim();
+    if (!isValidEmail(email)) {
+      setFinalStatus("올바른 이메일을 입력해주세요.", true);
+      return;
+    }
+
+    window.Verden.analytics?.trackEvent("launch_waitlist_submit", {
+      scene: "payment",
+      payload: {
+        orderNumber: finalOrderContext?.savedOrder?.order_number || null,
+      },
+    });
+
+    try {
+      if (!window.Verden.waitlistApi?.submitWaitlist) {
+        throw new Error("VERDEN waitlist API module is not available.");
+      }
+
+      isSubmittingWaitlist = true;
+      if (dom.paymentFinalSubmit) {
+        dom.paymentFinalSubmit.disabled = true;
+        dom.paymentFinalSubmit.textContent = "알림 신청 중";
+      }
+
+      const result = await window.Verden.waitlistApi.submitWaitlist(getWaitlistPayload(email));
+      const message = result?.duplicate
+        ? "이미 알림 신청이 완료된 이메일이에요."
+        : "알림 신청이 완료되었어요. 출시 소식을 가장 먼저 보내드릴게요.";
+      setFinalStatus(message);
+      if (dom.paymentFinalEmail) dom.paymentFinalEmail.disabled = true;
+      if (dom.paymentFinalForm) dom.paymentFinalForm.hidden = true;
+      if (dom.paymentFinalConfirm) dom.paymentFinalConfirm.hidden = false;
+
+      window.Verden.analytics?.trackEvent("launch_waitlist_success", {
+        scene: "payment",
+        payload: {
+          duplicate: Boolean(result?.duplicate),
+          orderNumber: finalOrderContext?.savedOrder?.order_number || null,
+        },
+      });
+    } catch (error) {
+      console.warn("VERDEN waitlist submission failed", error);
+      setFinalStatus("알림 신청을 저장하지 못했어요. 잠시 후 다시 시도해주세요.", true);
+      window.Verden.analytics?.trackEvent("launch_waitlist_error", {
+        scene: "payment",
+        payload: {
+          message: error.message,
+          orderNumber: finalOrderContext?.savedOrder?.order_number || null,
+        },
+      });
+    } finally {
+      isSubmittingWaitlist = false;
+      if (dom.paymentFinalSubmit && !dom.paymentFinalForm?.hidden) {
+        dom.paymentFinalSubmit.disabled = false;
+        dom.paymentFinalSubmit.textContent = "출시 알림 받기";
+      }
+    }
   }
 
   async function handlePaymentSubmit() {
@@ -332,7 +450,11 @@
           total: orderPayload.total,
         },
       });
-      openFinalModal();
+      openFinalModal({
+        orderPayload,
+        savedOrder: result?.order,
+        submissionId: result?.submissionId,
+      });
     } catch (error) {
       console.warn("VERDEN order submission failed", error);
       window.Verden.analytics?.trackEvent("order_submit_error", {
@@ -393,7 +515,10 @@
       });
     });
     dom.paymentSubmitButton?.addEventListener("click", handlePaymentSubmit);
-    dom.paymentFinalConfirm?.addEventListener("click", closeFinalModal);
+    dom.paymentFinalForm?.addEventListener("submit", handleWaitlistSubmit);
+    dom.paymentFinalConfirm?.addEventListener("click", () => {
+      window.location.reload();
+    });
     dom.paymentFinalBackdrop?.addEventListener("click", closeFinalModal);
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape" && dom.paymentFinalModal?.classList.contains("is-open")) {
@@ -411,12 +536,14 @@
     paymentDraft.payment.method = null;
     paymentDraft.payment.label = undefined;
     isSubmittingOrder = false;
+    finalOrderContext = null;
     dom.paymentScene?.setAttribute("aria-hidden", "true");
     if (dom.paymentPhoneInput) dom.paymentPhoneInput.value = "";
     if (dom.paymentSafeNumber) dom.paymentSafeNumber.checked = true;
     if (dom.paymentDeliveryDate) dom.paymentDeliveryDate.value = "";
     if (dom.paymentDeliveryTime) dom.paymentDeliveryTime.value = "";
     closeFinalModal();
+    resetFinalModalForm();
     renderPaymentMethods();
     state.setPaymentState(null);
   }
