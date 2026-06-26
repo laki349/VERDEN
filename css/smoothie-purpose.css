@@ -48,6 +48,7 @@
   font-weight: 600;
   letter-spacing: 0.34em;
   text-indent: 0.34em;
+  transform: translateX(-50%);
 }
 
 .smoothie-purpose-scene__back {
