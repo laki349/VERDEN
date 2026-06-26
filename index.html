@@ -7,7 +7,7 @@
     <title>VERDEN — Designed for your day.</title>
     <link rel="stylesheet" href="css/base.css?v=20260625-mobile1" />
     <link rel="stylesheet" href="css/hero.css?v=20260625-heroshadow1" />
-    <link rel="stylesheet" href="css/location.css?v=20260626-backnav1" />
+    <link rel="stylesheet" href="css/location.css?v=20260626-seoulmap4" />
     <link rel="stylesheet" href="css/smoothie-purpose.css?v=20260625-mobile1" />
     <link rel="stylesheet" href="css/body-profile.css?v=20260626-backnav1" />
     <link rel="stylesheet" href="css/nutrition-loading.css" />
@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/nutrition-modal.css" />
     <link rel="stylesheet" href="css/payment.css?v=20260626-backnav1" />
     <link rel="stylesheet" href="css/address-edit-modal.css" />
-    <link rel="stylesheet" href="css/animations.css?v=20260625-heroshadow1" />
+    <link rel="stylesheet" href="css/animations.css?v=20260626-seoulmap1" />
   </head>
   <body>
     <main class="app-shell">
@@ -76,52 +76,28 @@
           </div>
 
           <div class="location-scene__body">
-            <figure class="korea-map">
-              <svg viewBox="0 0 210 420" role="img" aria-labelledby="korea-map-title">
-                <title id="korea-map-title">VERDEN 배송 가능 지역이 표시된 한반도 지도</title>
-                <defs>
-                  <filter id="point-glow" x="-100%" y="-100%" width="300%" height="300%">
-                    <feGaussianBlur stdDeviation="3" result="blur" />
-                    <feMerge>
-                      <feMergeNode in="blur" />
-                      <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                  </filter>
-                </defs>
-                <path class="korea-map__outline" pathLength="1" d="M131 10 L127 28 L117 37 L112 53 L99 63 L90 78 L76 88 L64 103 L48 111 L37 124 L23 137 L28 150 L41 157 L37 170 L27 178 L34 193 L47 190 L56 202 L70 216 L62 230 L53 248 L58 261 L71 268 L79 286 L87 308 L99 333 L112 351 L129 367 L145 375 L158 364 L166 343 L172 320 L178 294 L182 268 L181 241 L177 218 L171 198 L163 178 L159 158 L164 142 L175 127 L176 108 L168 92 L174 77 L185 60 L179 47 L164 45 L156 32 L146 27 L141 12 Z" />
-                <path class="korea-map__island" pathLength="1" d="M105 397 C115 389 136 389 144 397 C138 407 116 411 105 403 Z" />
-
-                <g class="map-point" style="--point-delay: .38s" tabindex="0" role="button" aria-label="신촌">
-                  <rect class="map-point__tooltip-bg" x="45" y="153" width="36" height="16" rx="8" />
-                  <text class="map-point__tooltip-text" x="63" y="164" text-anchor="middle">신촌</text>
-                  <circle class="map-point__glow" cx="63" cy="174" r="7" />
-                  <circle class="map-point__dot" cx="63" cy="174" r="2.6" />
-                </g>
-                <g class="map-point" style="--point-delay: .46s" tabindex="0" role="button" aria-label="광화문">
-                  <rect class="map-point__tooltip-bg" x="48" y="150" width="42" height="16" rx="8" />
-                  <text class="map-point__tooltip-text" x="69" y="161" text-anchor="middle">광화문</text>
-                  <circle class="map-point__glow" cx="69" cy="171" r="7" />
-                  <circle class="map-point__dot" cx="69" cy="171" r="2.6" />
-                </g>
-                <g class="map-point" style="--point-delay: .54s" tabindex="0" role="button" aria-label="여의도">
-                  <rect class="map-point__tooltip-bg" x="41" y="161" width="42" height="16" rx="8" />
-                  <text class="map-point__tooltip-text" x="62" y="172" text-anchor="middle">여의도</text>
-                  <circle class="map-point__glow" cx="62" cy="182" r="7" />
-                  <circle class="map-point__dot" cx="62" cy="182" r="2.6" />
-                </g>
-                <g class="map-point" style="--point-delay: .62s" tabindex="0" role="button" aria-label="강남">
-                  <rect class="map-point__tooltip-bg" x="54" y="163" width="36" height="16" rx="8" />
-                  <text class="map-point__tooltip-text" x="72" y="174" text-anchor="middle">강남</text>
-                  <circle class="map-point__glow" cx="72" cy="184" r="7" />
-                  <circle class="map-point__dot" cx="72" cy="184" r="2.6" />
-                </g>
-                <g class="map-point" style="--point-delay: .7s" tabindex="0" role="button" aria-label="판교">
-                  <rect class="map-point__tooltip-bg" x="56" y="179" width="36" height="16" rx="8" />
-                  <text class="map-point__tooltip-text" x="74" y="190" text-anchor="middle">판교</text>
-                  <circle class="map-point__glow" cx="74" cy="200" r="7" />
-                  <circle class="map-point__dot" cx="74" cy="200" r="2.6" />
-                </g>
-              </svg>
+            <figure class="korea-map seoul-map">
+              <img class="seoul-map__image" src="assets/seoul-map.png" alt="VERDEN 배송 가능 지역이 표시된 서울 지도" />
+              <button class="map-point seoul-map__point seoul-map__point--sinchon" style="--point-delay: .38s" type="button" aria-label="신촌">
+                <span class="map-point__label">신촌</span>
+                <span class="map-point__glow" aria-hidden="true"></span>
+                <span class="map-point__dot" aria-hidden="true"></span>
+              </button>
+              <button class="map-point seoul-map__point seoul-map__point--gwanghwamun" style="--point-delay: .46s" type="button" aria-label="광화문">
+                <span class="map-point__label">광화문</span>
+                <span class="map-point__glow" aria-hidden="true"></span>
+                <span class="map-point__dot" aria-hidden="true"></span>
+              </button>
+              <button class="map-point seoul-map__point seoul-map__point--yeouido" style="--point-delay: .54s" type="button" aria-label="여의도">
+                <span class="map-point__label">여의도</span>
+                <span class="map-point__glow" aria-hidden="true"></span>
+                <span class="map-point__dot" aria-hidden="true"></span>
+              </button>
+              <button class="map-point seoul-map__point seoul-map__point--gangnam" style="--point-delay: .62s" type="button" aria-label="강남">
+                <span class="map-point__label">강남</span>
+                <span class="map-point__glow" aria-hidden="true"></span>
+                <span class="map-point__dot" aria-hidden="true"></span>
+              </button>
             </figure>
 
             <form class="location-form" id="location-form">

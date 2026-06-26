@@ -37,8 +37,8 @@
 }
 
 @keyframes point-pulse {
-  0%, 100% { opacity: 0.42; transform: scale(0.82); }
-  50% { opacity: 0.76; transform: scale(1.18); }
+  0%, 100% { opacity: 0.42; transform: translate(-50%, -50%) scale(0.82); }
+  50% { opacity: 0.76; transform: translate(-50%, -50%) scale(1.18); }
 }
 
 @keyframes detail-address-arrival {
