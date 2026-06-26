@@ -6,6 +6,8 @@
       jibunAddress: "",
       buildingName: "",
       bname: "",
+      sido: "",
+      sigungu: "",
       displayAddress: "",
       detailAddress: "",
       addressType: null,

@@ -189,6 +189,10 @@ table {
   min-width: 640px;
 }
 
+.admin-address-leads-table {
+  min-width: 1040px;
+}
+
 .admin-funnel-table td:nth-child(2),
 .admin-funnel-table td:nth-child(3),
 .admin-funnel-table td:nth-child(4) {

@@ -8,6 +8,8 @@
     dashboard: document.querySelector("#admin-dashboard"),
     refresh: document.querySelector("#admin-refresh"),
     export: document.querySelector("#admin-export"),
+    addressLeadsRefresh: document.querySelector("#admin-address-leads-refresh"),
+    addressLeadsExport: document.querySelector("#admin-address-leads-export"),
     summaryEvents: document.querySelector("#summary-events"),
     summaryOrders: document.querySelector("#summary-orders"),
     summaryPaymentViews: document.querySelector("#summary-payment-views"),
@@ -16,6 +18,8 @@
     funnelBody: document.querySelector("#funnel-body"),
     ordersBody: document.querySelector("#orders-body"),
     ordersCount: document.querySelector("#orders-count"),
+    addressLeadsBody: document.querySelector("#address-leads-body"),
+    addressLeadsCount: document.querySelector("#address-leads-count"),
   };
 
   function getToken() {
@@ -64,6 +68,11 @@
   function getAddressType(address) {
     if (!address?.addressType) return "-";
     return address.addressType === "work" ? "회사" : "집";
+  }
+
+  function formatAddressType(addressType) {
+    if (!addressType) return "-";
+    return addressType === "work" ? "회사" : "집";
   }
 
   function formatAddOns(addOns) {
@@ -128,6 +137,38 @@
       .join("");
   }
 
+  function renderAddressLeads(addressLeads) {
+    if (!elements.addressLeadsBody || !elements.addressLeadsCount) return;
+
+    elements.addressLeadsCount.textContent = `${addressLeads.length.toLocaleString("ko-KR")}건`;
+
+    if (addressLeads.length === 0) {
+      elements.addressLeadsBody.innerHTML = '<tr><td colspan="7">아직 주소 입력 리드가 없어요.</td></tr>';
+      return;
+    }
+
+    elements.addressLeadsBody.innerHTML = addressLeads
+      .map((lead) => `
+        <tr>
+          <td>${escapeHtml(formatDate(lead.created_at))}</td>
+          <td>${escapeHtml(formatAddressType(lead.address_type))}</td>
+          <td>${escapeHtml(lead.sido || "-")}</td>
+          <td>${escapeHtml(lead.sigungu || "-")}</td>
+          <td>${escapeHtml(lead.zonecode || "-")}</td>
+          <td>${escapeHtml(lead.address_text || lead.road_address || "-")}</td>
+          <td>${escapeHtml(lead.detail_address || "-")}</td>
+        </tr>
+      `)
+      .join("");
+  }
+
+  function renderAddressLeadsError(message) {
+    if (!elements.addressLeadsBody || !elements.addressLeadsCount) return;
+
+    elements.addressLeadsCount.textContent = "-";
+    elements.addressLeadsBody.innerHTML = `<tr><td colspan="7">${escapeHtml(message)}</td></tr>`;
+  }
+
   async function requestAdmin(path, options = {}) {
     const token = getToken();
     if (!token) throw new Error("관리자 토큰을 먼저 저장해주세요.");
@@ -166,8 +207,20 @@
     renderSummary(summary);
     renderFunnel(summary.funnel || []);
     renderOrders(orders || []);
+    try {
+      await loadAddressLeads();
+    } catch (error) {
+      console.warn("VERDEN admin address leads load failed", error);
+      renderAddressLeadsError("주소 리드를 불러오지 못했어요. address_leads SQL 적용 여부를 확인해주세요.");
+    }
     showDashboard();
     setStatus("데이터를 불러왔어요.");
+  }
+
+  async function loadAddressLeads() {
+    const response = await requestAdmin("/api/admin-address-leads");
+    const { addressLeads } = await response.json();
+    renderAddressLeads(addressLeads || []);
   }
 
   async function verifyAndLoadAdminData() {
@@ -200,6 +253,22 @@
     setStatus("CSV 다운로드를 시작했어요.");
   }
 
+  async function downloadAddressLeadsCsv() {
+    setStatus("주소 리드 CSV를 준비하는 중이에요.");
+    const response = await requestAdmin("/api/admin-export-address-leads");
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
+    const today = new Date().toISOString().slice(0, 10);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `verden-address-leads-${today}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+    setStatus("주소 리드 CSV 다운로드를 시작했어요.");
+  }
+
   function saveToken() {
     const token = elements.tokenInput.value.trim();
     if (!token) {
@@ -225,6 +294,14 @@
     });
     elements.export?.addEventListener("click", () => {
       downloadCsv().catch((error) => setStatus(error.message));
+    });
+    elements.addressLeadsRefresh?.addEventListener("click", () => {
+      loadAddressLeads()
+        .then(() => setStatus("주소 리드를 새로 불러왔어요."))
+        .catch((error) => setStatus(error.message));
+    });
+    elements.addressLeadsExport?.addEventListener("click", () => {
+      downloadAddressLeadsCsv().catch((error) => setStatus(error.message));
     });
 
     if (existingToken) {

@@ -20,6 +20,8 @@
       jibunAddress: address?.jibunAddress || "",
       buildingName: address?.buildingName || "",
       bname: address?.bname || "",
+      sido: address?.sido || "",
+      sigungu: address?.sigungu || "",
       displayAddress: address?.displayAddress || address?.roadAddress || address?.jibunAddress || "",
       detailAddress: address?.detailAddress || "",
       addressType: address?.addressType || null,
@@ -139,6 +141,8 @@
       jibunAddress: data.jibunAddress || "",
       buildingName: data.buildingName || "",
       bname: data.bname || "",
+      sido: data.sido || "",
+      sigungu: data.sigungu || "",
       displayAddress,
       detailAddress: "",
     };

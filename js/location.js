@@ -248,6 +248,8 @@
       jibunAddress: data.jibunAddress || "",
       buildingName: data.buildingName || "",
       bname: data.bname || "",
+      sido: data.sido || "",
+      sigungu: data.sigungu || "",
       displayAddress,
       detailAddress: "",
       addressType: currentAddressType,
@@ -368,6 +370,31 @@
 
       saveAddressDraft();
       console.log("VERDEN address payload", selectedAddress);
+      window.Verden.analytics?.trackEvent("address_lead_submit", {
+        scene: "location",
+        payload: {
+          zonecode: selectedAddress.zonecode || "",
+          addressType: selectedAddress.addressType || "",
+        },
+      });
+      window.Verden.addressLeadsApi?.submitAddressLead(selectedAddress)
+        .then((result) => {
+          window.Verden.analytics?.trackEvent("address_lead_success", {
+            scene: "location",
+            payload: {
+              duplicate: Boolean(result?.duplicate),
+            },
+          });
+        })
+        .catch((error) => {
+          console.warn("VERDEN address lead save failed", error);
+          window.Verden.analytics?.trackEvent("address_lead_error", {
+            scene: "location",
+            payload: {
+              message: error?.message || "unknown",
+            },
+          });
+        });
       window.Verden.smoothiePurpose?.showSmoothiePurposeScene();
       window.requestAnimationFrame(() => {
         window.scrollTo({ top: 0, left: 0, behavior: "auto" });
