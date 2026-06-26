@@ -125,6 +125,10 @@ button {
   flex-wrap: wrap;
 }
 
+.admin-dashboard[hidden] {
+  display: none;
+}
+
 .admin-summary {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));

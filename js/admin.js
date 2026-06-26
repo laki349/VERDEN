@@ -5,6 +5,7 @@
     tokenInput: document.querySelector("#admin-token"),
     tokenSave: document.querySelector("#admin-token-save"),
     status: document.querySelector("#admin-status"),
+    dashboard: document.querySelector("#admin-dashboard"),
     refresh: document.querySelector("#admin-refresh"),
     export: document.querySelector("#admin-export"),
     summaryEvents: document.querySelector("#summary-events"),
@@ -22,6 +23,14 @@
 
   function setStatus(message) {
     if (elements.status) elements.status.textContent = message;
+  }
+
+  function showDashboard() {
+    if (elements.dashboard) elements.dashboard.hidden = false;
+  }
+
+  function hideDashboard() {
+    if (elements.dashboard) elements.dashboard.hidden = true;
   }
 
   function formatWon(value) {
@@ -135,7 +144,22 @@
 
     renderSummary(summary);
     renderOrders(orders || []);
+    showDashboard();
     setStatus("데이터를 불러왔어요.");
+  }
+
+  async function verifyAndLoadAdminData() {
+    hideDashboard();
+
+    try {
+      await loadAdminData();
+    } catch (error) {
+      hideDashboard();
+      sessionStorage.removeItem(TOKEN_KEY);
+      setStatus(error.message === "관리자 토큰을 확인해주세요."
+        ? "관리자 토큰이 올바르지 않습니다."
+        : error.message);
+    }
   }
 
   async function downloadCsv() {
@@ -163,10 +187,11 @@
 
     sessionStorage.setItem(TOKEN_KEY, token);
     setStatus("토큰을 저장했어요. 데이터를 조회할게요.");
-    loadAdminData().catch((error) => setStatus(error.message));
+    verifyAndLoadAdminData();
   }
 
   function initializeAdmin() {
+    hideDashboard();
     const existingToken = getToken();
     if (existingToken && elements.tokenInput) {
       elements.tokenInput.value = existingToken;
@@ -174,14 +199,15 @@
 
     elements.tokenSave?.addEventListener("click", saveToken);
     elements.refresh?.addEventListener("click", () => {
-      loadAdminData().catch((error) => setStatus(error.message));
+      verifyAndLoadAdminData();
     });
     elements.export?.addEventListener("click", () => {
       downloadCsv().catch((error) => setStatus(error.message));
     });
 
     if (existingToken) {
-      loadAdminData().catch((error) => setStatus(error.message));
+      setStatus("저장된 토큰을 확인하고 있어요.");
+      verifyAndLoadAdminData();
     }
   }
 
