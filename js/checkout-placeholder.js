@@ -230,6 +230,17 @@
     payment?.showPaymentScene();
   }
 
+  function goBackToBodyProfileScene() {
+    window.Verden.analytics?.trackEvent("back_click", {
+      scene: "checkoutPlaceholder",
+      payload: {
+        fromScene: "checkoutPlaceholder",
+        toScene: "bodyProfile",
+      },
+    });
+    window.Verden.bodyProfile?.showBodyProfileScene();
+  }
+
   function toggleAddOn(addOnId) {
     if (selectedAddOnIds.has(addOnId)) {
       selectedAddOnIds.delete(addOnId);
@@ -252,6 +263,10 @@
     dom.checkoutPlaceholderButton?.addEventListener(
       "click",
       goToPaymentScene,
+    );
+    dom.checkoutBackButton?.addEventListener(
+      "click",
+      goBackToBodyProfileScene,
     );
     dom.checkoutNutritionMoreButton?.addEventListener(
       "click",

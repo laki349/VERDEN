@@ -61,6 +61,32 @@
   transform: translateX(-50%);
 }
 
+.checkout-placeholder-scene__back {
+  position: absolute;
+  z-index: 4;
+  top: calc(7.7% - 7px);
+  left: 22px;
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid rgba(245, 242, 224, 0.42);
+  border-radius: 50%;
+  background: rgba(8, 24, 13, 0.26);
+  color: rgba(247, 244, 225, 0.9);
+  cursor: pointer;
+  font-size: 17px;
+  line-height: 1;
+  transition:
+    border-color 200ms ease,
+    background-color 200ms ease,
+    transform 180ms ease;
+}
+
+.checkout-placeholder-scene__back:active {
+  transform: scale(0.96);
+}
+
 .checkout-scene__scroll {
   position: absolute;
   z-index: 2;

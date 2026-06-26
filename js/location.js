@@ -47,6 +47,28 @@
     dom.locationContinueButton.classList.toggle("is-active", isReady);
   }
 
+  function trackBackClick(fromScene, toScene) {
+    window.Verden.analytics?.trackEvent("back_click", {
+      scene: fromScene,
+      payload: { fromScene, toScene },
+    });
+  }
+
+  function showHeroScene() {
+    const { dom, state } = getModules();
+    const { hero, heroContent, locationScene } = dom;
+    if (!hero) return;
+
+    trackBackClick("location", "hero");
+    state.setCurrentScene("hero");
+    hero.classList.remove("is-location", "is-purpose", "is-body-profile", "is-nutrition-loading", "is-checkout-placeholder", "is-payment");
+    heroContent?.setAttribute("aria-hidden", "false");
+    locationScene?.setAttribute("aria-hidden", "true");
+    locationScene?.classList.remove("is-active");
+    closePostcodeSearch();
+    document.title = "VERDEN — Designed for your day.";
+  }
+
   function updateAddressTypeButtons(addressType) {
     const { dom } = getModules();
 
@@ -357,6 +379,7 @@
 
     dom.locationForm?.addEventListener("submit", handleContinue);
     dom.locationContinueButton?.addEventListener("click", handleContinue);
+    dom.locationBackButton?.addEventListener("click", showHeroScene);
 
     dom.mapPoints.forEach((point) => {
       point.addEventListener("click", () => showMapPointTooltip(point));
@@ -370,5 +393,6 @@
     openPostcodeSearch,
     renderAddressState,
     resetLocationUI,
+    showHeroScene,
   };
 })();

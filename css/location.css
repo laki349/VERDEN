@@ -59,6 +59,40 @@
   transform: translate(-50%, 0);
 }
 
+.location-scene__back {
+  position: absolute;
+  z-index: 3;
+  top: calc(13.1% - 7px);
+  left: 22px;
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid rgba(245, 242, 224, 0.42);
+  border-radius: 50%;
+  background: rgba(8, 24, 13, 0.26);
+  color: rgba(247, 244, 225, 0.9);
+  cursor: pointer;
+  font-size: 17px;
+  line-height: 1;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 420ms ease 210ms,
+    transform 520ms var(--ease-premium) 210ms,
+    border-color 200ms ease,
+    background-color 200ms ease;
+}
+
+.hero.is-location .location-scene__back {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.location-scene__back:active {
+  transform: scale(0.96);
+}
+
 .postcode-layer {
   position: absolute;
   z-index: 12;

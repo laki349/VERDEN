@@ -72,6 +72,13 @@
     document.title = "배송 가능 지역 확인 — VERDEN";
   }
 
+  function trackBackClick(fromScene, toScene) {
+    window.Verden.analytics?.trackEvent("back_click", {
+      scene: fromScene,
+      payload: { fromScene, toScene },
+    });
+  }
+
   function showBodyProfileScene() {
     const { dom, state } = getModules();
     const {
@@ -116,7 +123,10 @@
   function initializeSmoothiePurposeEvents() {
     const { dom } = getModules();
 
-    dom.purposeBackButton?.addEventListener("click", showLocationScene);
+    dom.purposeBackButton?.addEventListener("click", () => {
+      trackBackClick("smoothiePurpose", "location");
+      showLocationScene();
+    });
 
     dom.smoothiePurposeButtons.forEach((button) => {
       button.addEventListener("click", () => handlePurposeSelect(button));

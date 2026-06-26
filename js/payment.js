@@ -275,8 +275,28 @@
     getModules().checkout?.showCheckoutPlaceholderScene();
   }
 
-  function closeFinalModal() {
+  function handleBackToCheckoutScene() {
+    window.Verden.analytics?.trackEvent("back_click", {
+      scene: "payment",
+      payload: {
+        fromScene: "payment",
+        toScene: "checkoutPlaceholder",
+      },
+    });
+    showCheckoutScene();
+  }
+
+  function closeFinalModal(shouldTrack = false) {
     const { dom } = getModules();
+    if (shouldTrack) {
+      window.Verden.analytics?.trackEvent("back_click", {
+        scene: "payment",
+        payload: {
+          fromScene: "launchWaitlistModal",
+          toScene: "payment",
+        },
+      });
+    }
     dom.paymentFinalModal?.classList.remove("is-open");
     dom.paymentFinalModal?.setAttribute("aria-hidden", "true");
   }
@@ -483,7 +503,7 @@
 
     configureDeliveryDateField();
     populateDeliveryTimeOptions();
-    dom.paymentBackButton?.addEventListener("click", showCheckoutScene);
+    dom.paymentBackButton?.addEventListener("click", handleBackToCheckoutScene);
     dom.paymentAddressEditButton?.addEventListener("click", addressEditModal?.openAddressEditModal);
     dom.paymentNutritionMoreButton?.addEventListener("click", () => {
       getModules().nutritionModal?.openNutritionModal();
@@ -516,10 +536,11 @@
     });
     dom.paymentSubmitButton?.addEventListener("click", handlePaymentSubmit);
     dom.paymentFinalForm?.addEventListener("submit", handleWaitlistSubmit);
+    dom.paymentFinalClose?.addEventListener("click", () => closeFinalModal(true));
     dom.paymentFinalConfirm?.addEventListener("click", () => {
       window.location.reload();
     });
-    dom.paymentFinalBackdrop?.addEventListener("click", closeFinalModal);
+    dom.paymentFinalBackdrop?.addEventListener("click", () => closeFinalModal(false));
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape" && dom.paymentFinalModal?.classList.contains("is-open")) {
         closeFinalModal();

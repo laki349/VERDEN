@@ -139,6 +139,13 @@
   }
 
   function handleBackToPurpose() {
+    window.Verden.analytics?.trackEvent("back_click", {
+      scene: "bodyProfile",
+      payload: {
+        fromScene: "bodyProfile",
+        toScene: "smoothiePurpose",
+      },
+    });
     getModules().smoothiePurpose?.showSmoothiePurposeScene();
   }
 

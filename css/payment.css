@@ -479,6 +479,19 @@
   text-align: center;
 }
 
+.payment-final-modal__close {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: grid;
+  width: 32px;
+  min-height: 32px;
+  place-items: center;
+  padding: 0;
+  border-radius: 50%;
+  font-size: 16px;
+}
+
 .payment-final-modal__panel p {
   margin: 0 0 8px;
   color: rgba(205, 219, 183, 0.72);
@@ -545,6 +558,15 @@
   background: rgba(230, 232, 209, 0.22);
   color: rgba(244, 241, 223, 0.52);
   cursor: default;
+}
+
+.payment-final-modal__panel .payment-final-modal__close {
+  width: 32px;
+  min-height: 32px;
+  border: 1px solid rgba(245, 242, 224, 0.42);
+  background: rgba(8, 24, 13, 0.34);
+  color: rgba(247, 244, 225, 0.9);
+  font-size: 16px;
 }
 
 .payment-final-modal__status {
