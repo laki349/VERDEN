@@ -749,7 +749,7 @@
 
 @media (max-width: 430px) {
   .location-scene__body {
-    top: 15%;
+    top: 20%;
     right: 18px;
     bottom: 4%;
     left: 18px;
@@ -758,7 +758,7 @@
     overflow-y: visible;
     flex-direction: column;
     align-items: stretch;
-    gap: 20px;
+    gap: 18px;
   }
 
   .korea-map {
@@ -831,9 +831,9 @@
   }
 
   .location-scene.is-address-selected .location-scene__body {
-    top: 12%;
+    top: 18%;
     bottom: 3%;
-    gap: 14px;
+    gap: 12px;
   }
 
   .location-scene.is-address-selected .korea-map {
