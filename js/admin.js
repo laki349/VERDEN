@@ -10,11 +10,13 @@
     export: document.querySelector("#admin-export"),
     addressLeadsRefresh: document.querySelector("#admin-address-leads-refresh"),
     addressLeadsExport: document.querySelector("#admin-address-leads-export"),
+    resetData: document.querySelector("#admin-reset-data"),
     summaryEvents: document.querySelector("#summary-events"),
     summaryOrders: document.querySelector("#summary-orders"),
     summaryPaymentViews: document.querySelector("#summary-payment-views"),
     summaryOrderSuccess: document.querySelector("#summary-order-success"),
     summaryConversion: document.querySelector("#summary-conversion"),
+    smoothieStats: document.querySelector("#smoothie-stats"),
     funnelBody: document.querySelector("#funnel-body"),
     ordersBody: document.querySelector("#orders-body"),
     ordersCount: document.querySelector("#orders-count"),
@@ -82,6 +84,17 @@
       .join(", ");
   }
 
+  function getSmoothieLabel(order) {
+    const purpose = order?.smoothie_purpose || {};
+    if (purpose.label) return purpose.label;
+
+    const productName = String(order?.product_name || "");
+    if (productName.includes("다이어트")) return "다이어트용";
+    if (productName.includes("운동")) return "운동보충용";
+    if (productName.includes("식사")) return "식사대체용";
+    return "-";
+  }
+
   function renderSummary(summary) {
     elements.summaryEvents.textContent = Number(summary.totalEvents || 0).toLocaleString("ko-KR");
     elements.summaryOrders.textContent = Number(summary.totalOrders || 0).toLocaleString("ko-KR");
@@ -110,11 +123,50 @@
       .join("");
   }
 
+  function renderSmoothieStatRows(stats, variant) {
+    const items = Array.isArray(stats) ? stats : [];
+    if (items.length === 0) {
+      return '<p class="admin-smoothie-empty">아직 스무디 선택 데이터가 없어요.</p>';
+    }
+
+    return items
+      .map((item) => {
+        const ratio = Number(item.ratio || 0);
+        return `
+          <article class="admin-smoothie-stat admin-smoothie-stat--${variant}">
+            <div class="admin-smoothie-stat__head">
+              <strong>${escapeHtml(item.label || item.key || "-")}</strong>
+              <span>${Number(item.count || 0).toLocaleString("ko-KR")}명 / ${ratio.toFixed(1)}%</span>
+            </div>
+            <div class="admin-smoothie-stat__bar" aria-hidden="true">
+              <i style="width: ${Math.max(0, Math.min(100, ratio))}%"></i>
+            </div>
+          </article>
+        `;
+      })
+      .join("");
+  }
+
+  function renderSmoothieStats(smoothieStats) {
+    if (!elements.smoothieStats) return;
+
+    elements.smoothieStats.innerHTML = `
+      <div class="admin-smoothie-stats__group">
+        <h3>선택 이벤트 기준</h3>
+        ${renderSmoothieStatRows(smoothieStats?.eventBased, "event")}
+      </div>
+      <div class="admin-smoothie-stats__group admin-smoothie-stats__group--muted">
+        <h3>주문 제출 기준</h3>
+        ${renderSmoothieStatRows(smoothieStats?.orderBased, "order")}
+      </div>
+    `;
+  }
+
   function renderOrders(orders) {
     elements.ordersCount.textContent = `${orders.length.toLocaleString("ko-KR")}건`;
 
     if (orders.length === 0) {
-      elements.ordersBody.innerHTML = '<tr><td colspan="11">아직 주문 의향 데이터가 없어요.</td></tr>';
+      elements.ordersBody.innerHTML = '<tr><td colspan="12">아직 주문 의향 데이터가 없어요.</td></tr>';
       return;
     }
 
@@ -123,6 +175,7 @@
         <tr>
           <td>${escapeHtml(formatDate(order.created_at))}</td>
           <td>${escapeHtml(order.order_number || "-")}</td>
+          <td>${escapeHtml(getSmoothieLabel(order))}</td>
           <td>${escapeHtml(order.product_name || "-")}</td>
           <td>${escapeHtml(formatWon(order.total))}</td>
           <td>${escapeHtml(formatAddOns(order.add_ons))}</td>
@@ -205,6 +258,7 @@
     const { orders } = await ordersResponse.json();
 
     renderSummary(summary);
+    renderSmoothieStats(summary.smoothieStats || {});
     renderFunnel(summary.funnel || []);
     renderOrders(orders || []);
     try {
@@ -269,6 +323,43 @@
     setStatus("주소 리드 CSV 다운로드를 시작했어요.");
   }
 
+  async function resetTestData() {
+    const firstConfirmed = window.confirm(
+      "정말 모든 테스트 데이터를 초기화할까요? events, orders, waitlist 데이터가 모두 삭제됩니다. 이 작업은 되돌릴 수 없습니다.",
+    );
+
+    if (!firstConfirmed) return;
+
+    const confirmationText = window.prompt('초기화하려면 "전체초기화"를 입력해주세요.');
+    if (confirmationText !== "전체초기화") {
+      setStatus("초기화가 취소되었어요. 정확히 전체초기화를 입력해야 합니다.");
+      return;
+    }
+
+    setStatus("테스트 데이터를 초기화하는 중이에요.");
+    elements.resetData.disabled = true;
+
+    try {
+      const response = await requestAdmin("/api/admin-reset-data", {
+        method: "POST",
+      });
+      const result = await response.json();
+      const waitlistText = result.deleted?.waitlist == null
+        ? "waitlist skip"
+        : `waitlist ${Number(result.deleted.waitlist || 0).toLocaleString("ko-KR")}건`;
+
+      setStatus(
+        `모든 테스트 데이터가 초기화되었습니다. events ${Number(result.deleted?.events || 0).toLocaleString("ko-KR")}건, orders ${Number(result.deleted?.orders || 0).toLocaleString("ko-KR")}건, ${waitlistText}.`,
+      );
+      await loadAdminData();
+      setStatus("모든 테스트 데이터가 초기화되었습니다.");
+    } catch (error) {
+      setStatus("초기화에 실패했습니다. " + error.message);
+    } finally {
+      elements.resetData.disabled = false;
+    }
+  }
+
   function saveToken() {
     const token = elements.tokenInput.value.trim();
     if (!token) {
@@ -302,6 +393,9 @@
     });
     elements.addressLeadsExport?.addEventListener("click", () => {
       downloadAddressLeadsCsv().catch((error) => setStatus(error.message));
+    });
+    elements.resetData?.addEventListener("click", () => {
+      resetTestData();
     });
 
     if (existingToken) {

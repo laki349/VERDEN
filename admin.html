@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#172619" />
     <title>VERDEN Admin</title>
-    <link rel="stylesheet" href="css/admin.css?v=20260626-addressleads1" />
+    <link rel="stylesheet" href="css/admin.css?v=20260629-smoothie-reset1" />
   </head>
   <body>
     <main class="admin-shell">
@@ -55,6 +55,18 @@
           </article>
         </section>
 
+        <section class="admin-table-card admin-smoothie-card" aria-labelledby="smoothie-stats-title">
+          <div class="admin-table-card__header">
+            <div>
+              <h2 id="smoothie-stats-title">스무디 선택 현황</h2>
+              <small>메인: 선택 이벤트 기준 / 보조: 주문 제출 기준</small>
+            </div>
+          </div>
+          <div class="admin-smoothie-stats" id="smoothie-stats">
+            <p>토큰 저장 후 데이터를 조회하세요.</p>
+          </div>
+        </section>
+
         <section class="admin-table-card admin-funnel-card" aria-labelledby="funnel-title">
           <div class="admin-table-card__header">
             <h2 id="funnel-title">퍼널 이탈율</h2>
@@ -85,11 +97,12 @@
             <small id="orders-count">-</small>
           </div>
           <div class="admin-table-wrap">
-            <table>
+            <table class="admin-orders-table">
               <thead>
                 <tr>
                   <th>주문시간</th>
                   <th>주문번호</th>
+                  <th>스무디 종류</th>
                   <th>상품명</th>
                   <th>총액</th>
                   <th>추가옵션</th>
@@ -103,7 +116,7 @@
               </thead>
               <tbody id="orders-body">
                 <tr>
-                  <td colspan="11">토큰 저장 후 데이터를 조회하세요.</td>
+                  <td colspan="12">토큰 저장 후 데이터를 조회하세요.</td>
                 </tr>
               </tbody>
             </table>
@@ -136,9 +149,17 @@
             </table>
           </div>
         </section>
+
+        <section class="admin-danger-zone" aria-labelledby="danger-zone-title">
+          <div>
+            <h2 id="danger-zone-title">Danger Zone</h2>
+            <p>런칭 전 내부 테스트 기록만 초기화합니다. 주소 입력 리드는 삭제하지 않습니다.</p>
+          </div>
+          <button id="admin-reset-data" type="button">테스트 데이터 전체 초기화</button>
+        </section>
       </div>
     </main>
 
-    <script src="js/admin.js?v=20260626-addressleads1"></script>
+    <script src="js/admin.js?v=20260629-smoothie-reset1"></script>
   </body>
 </html>

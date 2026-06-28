@@ -13,6 +13,7 @@ const ORDER_SELECT = [
   "session_id",
   "status",
   "product_name",
+  "smoothie_purpose",
   "total",
   "add_ons",
   "delivery_date",
