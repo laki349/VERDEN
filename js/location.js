@@ -1,7 +1,10 @@
 (function () {
   const ADDRESS_DRAFT_KEY = "verdenAddressDraft";
   const POSTCODE_SCRIPT_URL = "https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
+  const OUT_OF_SERVICE_MESSAGE = "현재 VERDEN은 서울특별시 지역만 배송 가능해요.";
   let postcodeScriptPromise = null;
+  let hasServiceAreaError = false;
+  let invalidAddressPreview = "";
 
   function getModules() {
     return {
@@ -14,12 +17,109 @@
     return address.displayAddress || address.roadAddress || address.jibunAddress || "";
   }
 
+  function getAddressSearchErrorElement() {
+    const { dom } = getModules();
+    if (!dom.addressSearchButton) return null;
+
+    const existing = dom.addressSearchButton.parentElement?.querySelector(".address-error-message");
+    if (existing) return existing;
+
+    const errorElement = document.createElement("p");
+    errorElement.className = "address-error-message";
+    errorElement.hidden = true;
+    errorElement.textContent = OUT_OF_SERVICE_MESSAGE;
+    dom.addressSearchButton.insertAdjacentElement("afterend", errorElement);
+    return errorElement;
+  }
+
+  function getAddressCandidates(address = {}) {
+    return [
+      address.sido,
+      address.region_1depth_name,
+      address.roadAddress,
+      address.jibunAddress,
+      address.displayAddress,
+      address.address,
+      address.addressName,
+      address.address_name,
+      address.englishAddress,
+      address.roadAddressEnglish,
+      address.jibunAddressEnglish,
+    ]
+      .filter(Boolean)
+      .map((value) => String(value).trim());
+  }
+
+  function isSeoulAddress(address = {}) {
+    const candidates = getAddressCandidates(address);
+    return candidates.some((value) => {
+      const normalized = value.toLowerCase();
+      return normalized.includes("서울") || normalized.includes("seoul");
+    });
+  }
+
+  function getAddressPreview(address = {}) {
+    const displayAddress =
+      address.displayAddress ||
+      address.roadAddress ||
+      address.jibunAddress ||
+      address.address ||
+      address.address_name ||
+      "";
+    return String(displayAddress).slice(0, 32);
+  }
+
+  function clearAddressError() {
+    const { dom } = getModules();
+    const errorElement = getAddressSearchErrorElement();
+
+    hasServiceAreaError = false;
+    invalidAddressPreview = "";
+    dom.addressSearchButton?.classList.remove("is-invalid", "is-shaking");
+    if (errorElement) {
+      errorElement.hidden = true;
+      errorElement.textContent = "";
+    }
+  }
+
+  function showAddressError(address = {}) {
+    const { dom } = getModules();
+    const errorElement = getAddressSearchErrorElement();
+
+    hasServiceAreaError = true;
+    invalidAddressPreview = getAddressPreview(address);
+
+    if (errorElement) {
+      errorElement.textContent = OUT_OF_SERVICE_MESSAGE;
+      errorElement.hidden = false;
+    }
+
+    if (dom.addressSearchButton) {
+      dom.addressSearchButton.classList.remove("is-shaking");
+      // Force reflow so repeated invalid selections replay the shake animation.
+      void dom.addressSearchButton.offsetWidth;
+      dom.addressSearchButton.classList.add("is-invalid", "is-shaking");
+    }
+
+    window.Verden.analytics?.trackEvent("address_out_of_service_area", {
+      scene: "location",
+      payload: {
+        sido: address.sido || address.region_1depth_name || "",
+        sigungu: address.sigungu || "",
+        addressPreview: getAddressPreview(address),
+        reason: "outside_seoul",
+      },
+    });
+  }
+
   function canContinue() {
     const { state } = getModules();
     const { selectedAddress } = state.getState();
 
     return Boolean(
+      !hasServiceAreaError &&
       getDisplayAddress(selectedAddress) &&
+      isSeoulAddress(selectedAddress) &&
       selectedAddress.detailAddress?.trim() &&
       selectedAddress.addressType,
     );
@@ -174,15 +274,21 @@
     const { dom, state } = getModules();
     const { selectedAddress } = state.getState();
     const displayAddress = getDisplayAddress(selectedAddress);
-    const hasAddress = Boolean(displayAddress);
+    const displayAddressForUi = hasServiceAreaError && invalidAddressPreview
+      ? invalidAddressPreview
+      : displayAddress;
+    const hasAddress = Boolean(displayAddressForUi);
+    const hasValidAddress = Boolean(displayAddress) &&
+      isSeoulAddress(selectedAddress) &&
+      !hasServiceAreaError;
     const zonecodeText =
-      hasAddress && selectedAddress.zonecode
+      hasValidAddress && selectedAddress.zonecode
         ? `우편번호 ${selectedAddress.zonecode}`
         : "";
 
     if (dom.selectedAddress) {
       dom.selectedAddress.textContent = hasAddress
-        ? displayAddress
+        ? displayAddressForUi
         : "배송받을 주소 검색하기";
     }
 
@@ -204,27 +310,27 @@
 
     dom.addressSearchButton?.classList.toggle("has-address", hasAddress);
     dom.addressSearchButton?.classList.toggle("is-selected", hasAddress);
-    dom.locationScene?.classList.toggle("is-address-selected", hasAddress);
+    dom.locationScene?.classList.toggle("is-address-selected", hasValidAddress);
 
     if (dom.locationTitle) {
-      dom.locationTitle.textContent = hasAddress
+      dom.locationTitle.textContent = hasValidAddress
         ? "주소를 확인해주세요"
         : "주소를 적어주세요";
     }
 
     if (dom.locationDescription) {
-      dom.locationDescription.textContent = hasAddress
+      dom.locationDescription.textContent = hasValidAddress
         ? "상세주소까지 입력하면 확인할게요."
         : "배송 가능 여부를 먼저 확인할게요.";
     }
 
     if (dom.detailAddressWrap) {
-      dom.detailAddressWrap.classList.toggle("is-visible", hasAddress);
-      dom.detailAddressWrap.setAttribute("aria-hidden", String(!hasAddress));
+      dom.detailAddressWrap.classList.toggle("is-visible", hasValidAddress);
+      dom.detailAddressWrap.setAttribute("aria-hidden", String(!hasValidAddress));
     }
 
     if (dom.detailAddressInput) {
-      dom.detailAddressInput.value = hasAddress
+      dom.detailAddressInput.value = hasValidAddress
         ? selectedAddress.detailAddress || ""
         : "";
     }
@@ -236,24 +342,39 @@
     const { dom, state } = getModules();
     const currentAddressType = state.getState().selectedAddress.addressType;
     const displayAddress = data.roadAddress || data.jibunAddress || "";
+    const selectedAddress = {
+      zonecode: data.zonecode || "",
+      roadAddress: data.roadAddress || "",
+      jibunAddress: data.jibunAddress || "",
+      buildingName: data.buildingName || "",
+      bname: data.bname || "",
+      sido: data.sido || data.region_1depth_name || "",
+      sigungu: data.sigungu || "",
+      displayAddress,
+      detailAddress: "",
+      addressType: currentAddressType,
+      address: data.address || "",
+      address_name: data.address_name || "",
+      englishAddress: data.englishAddress || "",
+      roadAddressEnglish: data.roadAddressEnglish || "",
+      jibunAddressEnglish: data.jibunAddressEnglish || "",
+    };
 
     if (!displayAddress) {
       console.warn("No address selected from postcode data:", data);
       return;
     }
 
-    state.setSelectedAddress({
-      zonecode: data.zonecode || "",
-      roadAddress: data.roadAddress || "",
-      jibunAddress: data.jibunAddress || "",
-      buildingName: data.buildingName || "",
-      bname: data.bname || "",
-      sido: data.sido || "",
-      sigungu: data.sigungu || "",
-      displayAddress,
-      detailAddress: "",
-      addressType: currentAddressType,
-    });
+    if (!isSeoulAddress(selectedAddress)) {
+      showAddressError(selectedAddress);
+      renderAddressState();
+      updateContinueButtonState();
+      closePostcodeSearch();
+      return;
+    }
+
+    clearAddressError();
+    state.setSelectedAddress(selectedAddress);
 
     saveAddressDraft();
     renderAddressState();
@@ -346,6 +467,9 @@
 
     dom.detailAddressInput?.addEventListener("input", (event) => {
       state.setDetailAddress(event.currentTarget.value);
+      if (isSeoulAddress(state.getState().selectedAddress)) {
+        clearAddressError();
+      }
       saveAddressDraft();
       updateContinueButtonState();
     });
@@ -360,6 +484,15 @@
       event.preventDefault();
 
       const { selectedAddress } = state.getState();
+      if (hasServiceAreaError || !isSeoulAddress(selectedAddress)) {
+        showAddressError(hasServiceAreaError
+          ? { displayAddress: invalidAddressPreview }
+          : selectedAddress);
+        renderAddressState();
+        updateContinueButtonState();
+        return;
+      }
+
       if (!canContinue()) return;
 
       dom.detailAddressInput?.blur();

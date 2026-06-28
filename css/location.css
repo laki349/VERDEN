@@ -372,6 +372,29 @@
   transform: translate(-50%, 0);
 }
 
+@keyframes addressShake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  20% {
+    transform: translateX(-5px);
+  }
+
+  40% {
+    transform: translateX(5px);
+  }
+
+  60% {
+    transform: translateX(-4px);
+  }
+
+  80% {
+    transform: translateX(4px);
+  }
+}
+
 .location-form {
   position: relative;
   z-index: 2;
@@ -450,6 +473,31 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.07),
     0 0 0 3px rgba(159, 200, 141, 0.1),
     0 12px 28px rgba(2, 10, 5, 0.16);
+}
+
+.address-search.is-invalid {
+  border-color: rgba(229, 72, 77, 0.96);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 0 0 3px rgba(229, 72, 77, 0.15),
+    0 12px 28px rgba(2, 10, 5, 0.16);
+}
+
+.address-search.is-shaking {
+  animation: addressShake 320ms ease;
+}
+
+.address-error-message {
+  width: 100%;
+  margin: 7px 0 0;
+  color: rgba(255, 139, 128, 0.94);
+  font-size: 11px;
+  line-height: 1.45;
+  letter-spacing: -0.03em;
+}
+
+.address-error-message[hidden] {
+  display: none;
 }
 
 .address-search.has-address,
