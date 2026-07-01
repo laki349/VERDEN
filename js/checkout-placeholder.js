@@ -9,7 +9,7 @@
       description: "든든한 한 끼를 위한 오트·바나나 베이스",
       image: "assets/meal-replacement-smoothie.png",
       imageAlt: "식사대체용 VERDEN 오트 바나나 스무디",
-      price: 8900,
+      price: 6500,
     },
     proteinRecovery: {
       id: "proteinRecovery",
@@ -17,7 +17,7 @@
       description: "운동 후 회복을 위한 베리·단백질 베이스",
       image: "assets/protein-recovery-smoothie.png",
       imageAlt: "운동보충용 VERDEN 베리 단백질 스무디",
-      price: 8900,
+      price: 6500,
     },
     diet: {
       id: "diet",
@@ -25,7 +25,7 @@
       description: "상큼한 베리와 가벼운 포만감으로 부담 없이 채우는 밸런스 스무디",
       image: "assets/diet-smoothie.png",
       imageAlt: "다이어트용 VERDEN 핑크 베리 스무디",
-      price: 8900,
+      price: 6500,
     },
   };
 
